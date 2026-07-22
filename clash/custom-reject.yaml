@@ -1,0 +1,4 @@
+# Domains forced REJECT (not covered by geosite bilibili / xiaohongshu).
+payload:
+  - "+.tieba.baidu.com"
+  - "+.sicau.edu.cn"

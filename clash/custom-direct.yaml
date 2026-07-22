@@ -1,0 +1,11 @@
+# Domains forced DIRECT (not covered by geosite-cn / zoom).
+payload:
+  - "+.apple.com"
+  - "+.steamcontent.com"
+  - "+.steamserver.net"
+  - "+.windowsupdate.com"
+  - "+.xboxlive.com"
+  - "+.msftconnecttest.com"
+  - "+.teleport.sh"
+  - "dl.delivery.mp.microsoft.com"
+  - "tlu.dl.delivery.mp.microsoft.com"
