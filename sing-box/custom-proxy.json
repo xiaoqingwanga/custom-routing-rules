@@ -3,7 +3,8 @@
   "rules": [
     {
       "domain_suffix": [
-        "bing.com"
+        "bing.com",
+        "z.ai"
       ]
     }
   ]
