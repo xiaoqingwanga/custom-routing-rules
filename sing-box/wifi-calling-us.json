@@ -1,0 +1,34 @@
+{
+  "version": 3,
+  "rules": [
+    {
+      "domain_suffix": [
+        "epdg.epc.att.net",
+        "epdg.epc.att-idns.net",
+        "sentitlement2.mobile.att.net",
+        "vvm.mobile.att.net",
+        "crl.t-mobile.com",
+        "depdg.epc.mnc260.mcc310.pub.3gppnetwork.org",
+        "eas3.msg.t-mobile.com",
+        "epdg.epc.mnc240.mcc310.pub.3gppnetwork.org",
+        "epdg.epc.mnc260.mcc310.pub.3gppnetwork.org",
+        "mascns.t-mobile.com",
+        "ns.sipgeo.t-mobile.com",
+        "redirect.ultra.me",
+        "epdg.epc.geo.mnc260.mcc310.pub.3gppnetwork.org",
+        "ultramobile.com",
+        "ss.epdg.epc.mnc260.mcc310.pub.3gppnetwork.org",
+        "ss.epdg.epc.geo.mnc260.mcc310.pub.3gppnetwork.org",
+        "wo.vzwwo.com"
+      ]
+    },
+    {
+      "ip_cidr": [
+        "107.122.31.0/32",
+        "206.29.177.36/32",
+        "208.54.0.0/16",
+        "66.94.0.0/19"
+      ]
+    }
+  ]
+}
