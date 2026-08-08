@@ -11,7 +11,6 @@ payload:
 
   # T-Mobile / Ultra Mobile / Helium Mobile
   - DOMAIN-SUFFIX,crl.t-mobile.com
-  - DOMAIN-SUFFIX,depdg.epc.mnc260.mcc310.pub.3gppnetwork.org
   - DOMAIN-SUFFIX,eas3.msg.t-mobile.com
   - DOMAIN-SUFFIX,epdg.epc.mnc240.mcc310.pub.3gppnetwork.org
   - DOMAIN-SUFFIX,epdg.epc.mnc260.mcc310.pub.3gppnetwork.org

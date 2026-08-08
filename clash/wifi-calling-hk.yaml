@@ -7,8 +7,6 @@ payload:
   - DOMAIN-SUFFIX,wlan.datapath.three.com.hk
   - DOMAIN-SUFFIX,device.three.com.hk
   - DOMAIN-SUFFIX,epdg.epc.mnc000.mcc454.pub.3gppnetwork.org
-  - DOMAIN-SUFFIX,ss.epdg.epc.mnc000.mcc454.pub.3gppnetwork.org
-  - DOMAIN-SUFFIX,ss.epdg.epc.geo.mnc000.mcc454.pub.3gppnetwork.org
 
   # HKT / CSL / 1010 / One2Free
   - DOMAIN-SUFFIX,csl.prod.ondemandconnectivity.com
