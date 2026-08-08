@@ -54,6 +54,8 @@ Outbound binding lives in NetworkTurbo `confs/`, not here.
 
 按地区维护：`wifi-calling-us` / `-uk` / `-hk`；`apple-location` 目前只有 `gspe1-ssl.ls.apple.com`。
 
+**自动化（只读）**：NetworkTurbo `scripts/security-summary.sh` 会拉取上述上游 + 本仓已发布规则，对 ours 做 DoH，并对「上游有、我们没有」的候选再 DoH。HenryChiao / Omada 上仍存活的缺口记 `WARN: MISSING`；Netify 全美/全英目录噪声记 `INFO`；`NXDOMAIN` / `127.0.0.1` skip。写入/push 仍手工。
+
 ### 2. 解析校验（必做）
 
 对每个候选 **ePDG FQDN** 做 DoH（勿盲信列表）：
