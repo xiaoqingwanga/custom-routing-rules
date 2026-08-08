@@ -52,9 +52,9 @@ Outbound binding lives in NetworkTurbo `confs/`, not here.
 - 网关目录：[Netify mobile gateways](https://www.netify.ai/resources/mobile-gateways)（按国家 MCC）
 - 论坛/实测（如某 MVNO 实际解析到的 ePDG）
 
-按地区维护：`wifi-calling-us` / `-uk` / `-hk`；`apple-location` 目前只有 `gspe1-ssl.ls.apple.com`。
+按地区维护：`wifi-calling-us` / `-uk` / `-hk`；`apple-location` 目前为 `gspe1-ssl.ls.apple.com`、`gspe79-ssl.ls.apple.com`。
 
-**自动化（只读）**：NetworkTurbo `scripts/security-summary.sh` 会拉取上述上游 + 本仓已发布规则，对 ours 做 DoH，并对「上游有、我们没有」的候选再 DoH。HenryChiao / Omada 上仍存活的缺口记 `WARN: MISSING`；Netify 全美/全英目录噪声记 `INFO`；`NXDOMAIN` / `127.0.0.1` skip。写入/push 仍手工。
+**自动化（只读）**：NetworkTurbo `scripts/security-summary.sh` 会拉取上述上游 + 本仓已发布规则，对 ours 做 DoH，并对「上游有、我们没有」的候选再 DoH。HenryChiao / Omada 上仍存活的缺口记 `WARN: MISSING`；Netify 噪声记 `INFO`；上游死域名（NXDOMAIN / `127.0.0.1` / NO_A）**自动跳过**并缓存约 7 天（`~/.cache/networkturbo/wfc-dead-domains.tsv`）。若死域名已在本仓规则里则仍 WARN。写入/push 仍手工。
 
 ### 2. 解析校验（必做）
 

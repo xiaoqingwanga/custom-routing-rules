@@ -3,7 +3,8 @@
   "rules": [
     {
       "domain_suffix": [
-        "gspe1-ssl.ls.apple.com"
+        "gspe1-ssl.ls.apple.com",
+        "gspe79-ssl.ls.apple.com"
       ]
     }
   ]
