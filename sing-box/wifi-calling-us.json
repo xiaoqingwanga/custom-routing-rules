@@ -7,18 +7,22 @@
         "epdg.epc.att-idns.net",
         "sentitlement2.mobile.att.net",
         "vvm.mobile.att.net",
+        "att.com",
         "crl.t-mobile.com",
         "eas3.msg.t-mobile.com",
         "epdg.epc.mnc240.mcc310.pub.3gppnetwork.org",
         "epdg.epc.mnc260.mcc310.pub.3gppnetwork.org",
         "mascns.t-mobile.com",
         "ns.sipgeo.t-mobile.com",
+        "t-mobile.com",
         "redirect.ultra.me",
         "epdg.epc.geo.mnc260.mcc310.pub.3gppnetwork.org",
         "ultramobile.com",
         "ss.epdg.epc.mnc260.mcc310.pub.3gppnetwork.org",
         "ss.epdg.epc.geo.mnc260.mcc310.pub.3gppnetwork.org",
-        "wo.vzwwo.com"
+        "wo.vzwwo.com",
+        "verizon.com",
+        "verizonwireless.com"
       ]
     },
     {

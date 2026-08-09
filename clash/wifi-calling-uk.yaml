@@ -1,11 +1,13 @@
 # UK Wi-Fi Calling (VoWiFi / ePDG)
 # Base: HenryChiao wificalling-uk.list
 # + EE mnc030/mnc071 (Habitech / Netify); mnc033 kept under EE (same ePDG IPs)
+# Policy: every carrier block includes its consumer website.
 payload:
   # Vodafone UK
   - DOMAIN-SUFFIX,entsrv-uk.vodafone.com
   - DOMAIN-SUFFIX,epdg.epc.mnc015.mcc234.pub.3gppnetwork.org
   - DOMAIN-SUFFIX,vuk-gto.prod.ondemandconnectivity.com
+  - DOMAIN-SUFFIX,vodafone.co.uk
   - IP-CIDR,88.82.0.0/19,no-resolve
   - IP-CIDR,88.82.11.0/24,no-resolve
 
@@ -14,17 +16,20 @@ payload:
   - DOMAIN-SUFFIX,epdg.epc.mnc033.mcc234.pub.3gppnetwork.org
   - DOMAIN-SUFFIX,epdg.epc.mnc071.mcc234.pub.3gppnetwork.org
   - DOMAIN-SUFFIX,config.rcs.mnc033.mcc234.jibecloud.net
+  - DOMAIN-SUFFIX,ee.co.uk
   - IP-CIDR,31.94.0.0/16,no-resolve
 
   # CMLink UK (listed FQDN uses MCC 230; keep as-published)
   - DOMAIN-SUFFIX,epdg.epc.mnc001.mcc230.pub.3gppnetwork.org
+  - DOMAIN-SUFFIX,cmlink.com
   - IP-CIDR,46.68.0.0/17,no-resolve
   - IP-CIDR,46.68.57.0/24,no-resolve
   - IP-CIDR,46.68.58.0/24,no-resolve
   - IP-CIDR,46.68.59.0/24,no-resolve
 
-  # Giffgaff (O2)
+  # Giffgaff / O2
   - DOMAIN-SUFFIX,giffgaff.com
+  - DOMAIN-SUFFIX,o2.co.uk
   - DOMAIN-SUFFIX,epdg.epc.mnc010.mcc234.pub.3gppnetwork.org
   - IP-CIDR,87.194.0.0/19,no-resolve
   - IP-CIDR,87.194.8.0/24,no-resolve
@@ -33,6 +38,7 @@ payload:
 
   # 3UK
   - DOMAIN-SUFFIX,epdg.epc.mnc020.mcc234.pub.3gppnetwork.org
+  - DOMAIN-SUFFIX,three.co.uk
   - IP-CIDR,185.153.236.0/22,no-resolve
   - IP-CIDR,185.153.237.0/24,no-resolve
 

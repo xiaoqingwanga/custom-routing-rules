@@ -6,14 +6,21 @@
         "wlan.three.com.hk",
         "wlan.datapath.three.com.hk",
         "device.three.com.hk",
+        "three.com.hk",
         "epdg.epc.mnc000.mcc454.pub.3gppnetwork.org",
         "csl.prod.ondemandconnectivity.com",
         "epdg.epc.mnc010.mcc454.pub.3gppnetwork.org",
         "epdg.epc.mnc016.mcc454.pub.3gppnetwork.org",
         "epdg.epc.mnc019.mcc454.pub.3gppnetwork.org",
+        "hkt.com",
+        "csl.com.hk",
+        "1010.com.hk",
+        "one2free.com.hk",
         "hhk.prod.ondemandconnectivity.com",
         "epdg.epc.mnc006.mcc454.pub.3gppnetwork.org",
-        "epdg.epc.mnc012.mcc454.pub.3gppnetwork.org"
+        "smartone.com",
+        "epdg.epc.mnc012.mcc454.pub.3gppnetwork.org",
+        "hk.chinamobile.com"
       ]
     },
     {

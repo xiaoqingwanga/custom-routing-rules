@@ -24,8 +24,9 @@ Consumers pull by `interval` (clients) or router cron (`NetworkTurbo` `scripts/u
 | `custom-reject` | → REJECT |
 | `custom-proxy` | → default `proxy` |
 | `wifi-calling-us` | → `cog-us-lax-v4` |
-| `wifi-calling-uk` | → `yunyoo-gb-ncl` |
-| `apple-location` | → `yunyoo-gb-ncl` |
+| `wifi-calling-uk` | → `jjfly-gb-lwt`（经 `yunyoo-de-fra`） |
+| `wifi-calling-de` | → `yunyoo-de-fra` |
+| `apple-location` | → `jjfly-gb-lwt`（经 `yunyoo-de-fra`） |
 | `wifi-calling-hk` | ruleset only — not wired yet |
 
 Outbound binding lives in NetworkTurbo `confs/`, not here. **新建桶**（如 `apple-direct` / `steam-direct`）除本仓文件外，还需改 NetworkTurbo：`rule-providers` / `rule_set` 接线 + `update-singbox-rules.sh` 的 `CUSTOMS`。
@@ -58,7 +59,7 @@ Apple / Steam 下载 CDN **不要**写进 `custom-direct`，见下方对应 SOP�
 - 网关目录：[Netify mobile gateways](https://www.netify.ai/resources/mobile-gateways)（按国家 MCC）
 - 论坛/实测（如某 MVNO 实际解析到的 ePDG）
 
-按地区维护：`wifi-calling-us` / `-uk` / `-hk`；`apple-location` 目前为 `gspe1-ssl.ls.apple.com`、`gspe79-ssl.ls.apple.com`。
+按地区维护：`wifi-calling-us` / `-uk` / `-de` / `-hk`；`apple-location` 目前为 `gspe1-ssl.ls.apple.com`、`gspe79-ssl.ls.apple.com`。
 
 **自动化（只读）**：NetworkTurbo `scripts/security-summary.sh` 会拉取上述上游 + 本仓已发布规则，对 ours 做 DoH，并对「上游有、我们没有」的候选再 DoH。HenryChiao / Omada 上仍存活的缺口记 `WARN: MISSING`；Netify 噪声记 `INFO`；上游死域名（NXDOMAIN / `127.0.0.1` / NO_A）**自动跳过**并缓存约 7 天（`~/.cache/networkturbo/wfc-dead-domains.tsv`）。若死域名已在本仓规则里则仍 WARN。写入/push 仍手工。该 SOP 与 `apple-direct` / `steam-direct` SOP 一样，**默认至少间隔 3 天**才再跑（戳记 `~/.cache/networkturbo/sop-last-run-wifi-calling`）；`--force-sop` 或 `FORCE_RULESET_SOP=1` 可强制。
 
@@ -91,9 +92,11 @@ MVNO（如 CTExcel）往往**没有**自有 ePDG，而是宿主网（如 EE `mnc
 
 注意：
 
+- **每个运营商块必须带消费网站**（`DOMAIN-SUFFIX` / `domain_suffix`），不只 ePDG。
 - 不要用过宽的 `DOMAIN-KEYWORD`（易误伤）。
 - 不要全局 `DST-PORT,500/4500`（会匹配所有 IKE）。
 - 注释里写清运营商 / MCC-MNC / 来源日期，方便下次 diff。
+- 品牌不明、又找不到官网的 ePDG：**不要单独成块**（可丢弃或等确认后再加）。
 
 ### 4. 发布与生效
 

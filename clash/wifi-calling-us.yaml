@@ -1,12 +1,14 @@
 # US Wi-Fi Calling (VoWiFi / ePDG)
 # Base: HenryChiao wificalling-us.list
 # + Verizon wo.vzwwo.com (Omada); dropped DOMAIN-KEYWORD + optimizely.com
+# Policy: every carrier block includes its consumer website.
 payload:
   # AT&T
   - DOMAIN-SUFFIX,epdg.epc.att.net
   - DOMAIN-SUFFIX,epdg.epc.att-idns.net
   - DOMAIN-SUFFIX,sentitlement2.mobile.att.net
   - DOMAIN-SUFFIX,vvm.mobile.att.net
+  - DOMAIN-SUFFIX,att.com
   - IP-CIDR,107.122.31.0/32,no-resolve
 
   # T-Mobile / Ultra Mobile / Helium Mobile
@@ -16,6 +18,7 @@ payload:
   - DOMAIN-SUFFIX,epdg.epc.mnc260.mcc310.pub.3gppnetwork.org
   - DOMAIN-SUFFIX,mascns.t-mobile.com
   - DOMAIN-SUFFIX,ns.sipgeo.t-mobile.com
+  - DOMAIN-SUFFIX,t-mobile.com
   - DOMAIN-SUFFIX,redirect.ultra.me
   - DOMAIN-SUFFIX,epdg.epc.geo.mnc260.mcc310.pub.3gppnetwork.org
   - DOMAIN-SUFFIX,ultramobile.com
@@ -27,3 +30,5 @@ payload:
 
   # Verizon
   - DOMAIN-SUFFIX,wo.vzwwo.com
+  - DOMAIN-SUFFIX,verizon.com
+  - DOMAIN-SUFFIX,verizonwireless.com
