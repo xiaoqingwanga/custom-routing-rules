@@ -16,7 +16,7 @@ Consumers pull by `interval` (clients) or router cron (`NetworkTurbo` `scripts/u
 
 | File | Role / intended outbound (wired in NetworkTurbo `confs/`) |
 |------|-----------------------------------------------------------|
-| `custom-direct` | → DIRECT |
+| `custom-direct` | → DIRECT（含 Apple **下载 CDN** 白名单，非整站 `apple.com`） |
 | `custom-reject` | → REJECT |
 | `custom-proxy` | → default `proxy` |
 | `wifi-calling-us` | → `cog-us-lax-v4` |
@@ -101,3 +101,63 @@ MVNO（如 CTExcel）往往**没有**自有 ePDG，而是宿主网（如 EE `mnc
 - [ ] 无 `127.0.0.1` / 明显垃圾域名  
 - [ ] 已 push；路由器/客户端能拉到新内容  
 - [ ] HK 等「仅 ruleset」桶：不要误接到 `confs/`，除非明确要接线  
+
+---
+
+## SOP: 检查 Apple 直连（custom-direct）
+
+**策略**：大文件下载 → `custom-direct`（DIRECT）；App Store / Apple ID **登录与商店 API** → 不写 DIRECT，落到 NetworkTurbo 默认 `proxy`（`MATCH`）。  
+**禁止**再加回整站 `+.apple.com` / `apple.com`。
+
+**建议周期**：每半年，或 Apple 企业网络文档大改、系统大版本更新下不动包、App Store 安装异常时立刻查。
+
+### 1. 对照官方清单
+
+主源：[Use Apple products on enterprise networks](https://support.apple.com/en-us/101555)（HT211152）。重点看这几节表格：
+
+| 章节 | 直连候选（下载/CDN） | 应留给 proxy（勿塞进 custom-direct） |
+|------|----------------------|--------------------------------------|
+| Software updates | `updates(.cdn-apple)`、`swcdn` / `swdist` / `swdownload`、`appldnld`、`oscdn` / `osrecovery` 等 | `mesu` / `gdmf` / `swscan` 等**目录**；`xp` / `gg` / `gs` 等小流量 API |
+| Apps and additional content | `*.mzstatic.com`；`audiocontentdownload`；`download.developer` / `devimages-cdn`；`playground-*`；`sylvan` | `*.itunes.apple.com`、`*.apps.apple.com`（商店 API / 区服） |
+| Apple Account | — | `idmsa` / `account` / `gsa` / `appleid.cdn-apple.com`（登录；`cdn-apple` 后缀已直连时静态资源会直连，可接受） |
+| iCloud | `*.icloud-content.com`；`*.cdn-apple.com`（面宽，含更新包） | 一般 `*.icloud.com` API（整站勿直连） |
+
+官方标 **Supports proxies: —** 且描述为 downloads / Store content CDN 的，优先考虑进 DIRECT。
+
+### 2. 本仓应对齐的条目
+
+Clash / sing-box **同一批**（见日常例外 SOP）。当前 Apple 相关应大致覆盖：
+
+- 后缀：`mzstatic.com`、`cdn-apple.com`、`icloud-content.com`
+- 主机：`appldnld` / `swcdn` / `swdist` / `swdownload` / `oscdn` / `osrecovery`、`download.developer` / `devimages-cdn`、`audiocontentdownload`、`sylvan`、`playground-cdn` / `playground-assets-cdn`
+
+文档新增「明显大文件」主机时：只加下载侧；**不要**为了省事写 `+.apple.com`。
+
+### 3. 解析抽查（可选）
+
+对拟新增或可疑的 FQDN 做 DoH（与 WFC SOP 相同手法）。能解析再写入；`NXDOMAIN` 不写。
+
+```bash
+curl -sH 'accept: application/dns-json' \
+  'https://cloudflare-dns.com/dns-query?name=updates.cdn-apple.com&type=A'
+```
+
+### 4. 行为自检（改完或巡检时）
+
+| 流量 | 期望 |
+|------|------|
+| App / 系统更新 / Xcode 组件包体 | DIRECT（走上述 CDN） |
+| App Store 登录、购买、商店页 API | proxy（`itunes` / `apps` / `idmsa` 等） |
+| `apple-location` / Wi‑Fi Calling | 仍由其专用规则优先于 `custom-direct`（出站在 NetworkTurbo `confs/`） |
+
+### 5. 发布
+
+同「日常例外域名」：双格式改完 → `commit` + `push` `main` → 客户端 `interval` / 路由器 `update-singbox-rules.sh`。
+
+### 6. 快速自检
+
+- [ ] 无整站 `apple.com`  
+- [ ] clash ↔ sing-box Apple 条目一致  
+- [ ] 无 `itunes.apple.com` / `apps.apple.com` / `idmsa.apple.com` 等登录·API 进 DIRECT  
+- [ ] 对照过 [101555](https://support.apple.com/en-us/101555) 近期 changelog（页底 Recent changes）  
+- [ ] 已 push；消费者能拉到新内容  
