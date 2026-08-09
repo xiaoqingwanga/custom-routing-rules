@@ -12,11 +12,13 @@ payload:
   - IP-CIDR,88.82.11.0/24,no-resolve
 
   # EE (incl. CTExcel / MVNOs on EE)
+  # ctexcel.com is in geosite-cn; must be listed here or it falls to DIRECT
   - DOMAIN-SUFFIX,epdg.epc.mnc030.mcc234.pub.3gppnetwork.org
   - DOMAIN-SUFFIX,epdg.epc.mnc033.mcc234.pub.3gppnetwork.org
   - DOMAIN-SUFFIX,epdg.epc.mnc071.mcc234.pub.3gppnetwork.org
   - DOMAIN-SUFFIX,config.rcs.mnc033.mcc234.jibecloud.net
   - DOMAIN-SUFFIX,ee.co.uk
+  - DOMAIN-SUFFIX,ctexcel.com
   - IP-CIDR,31.94.0.0/16,no-resolve
 
   # CMLink UK (listed FQDN uses MCC 230; keep as-published)
