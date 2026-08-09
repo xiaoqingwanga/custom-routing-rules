@@ -1,7 +1,6 @@
 # Domains forced DIRECT (not covered by geosite-cn / zoom).
+# Steam download CDNs live in steam-direct — do not put them here.
 payload:
-  - "+.steamcontent.com"
-  - "+.steamserver.net"
   - "+.windowsupdate.com"
   - "+.xboxlive.com"
   - "+.msftconnecttest.com"

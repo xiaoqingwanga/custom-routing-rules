@@ -6,6 +6,7 @@ Personal domain exceptions for Clash / sing-box. **Rules only — no proxy crede
 |------|----------|
 | `clash/custom-{direct,reject,proxy}.yaml` | Mihomo / Stash `rule-providers` (`behavior: domain`) |
 | `clash/apple-direct.yaml` | Mihomo / Stash (`behavior: domain`) — Apple download CDNs → DIRECT |
+| `clash/steam-direct.yaml` | Mihomo / Stash (`behavior: domain`) — Steam download CDNs → DIRECT |
 | `clash/wifi-calling-*.yaml`, `clash/apple-location.yaml` | Mihomo / Stash (`behavior: classical`) |
 | `sing-box/*.json` | sing-box `rule_set` (`format: source`) |
 
@@ -17,8 +18,9 @@ Consumers pull by `interval` (clients) or router cron (`NetworkTurbo` `scripts/u
 
 | File | Role / intended outbound (wired in NetworkTurbo `confs/`) |
 |------|-----------------------------------------------------------|
-| `custom-direct` | → DIRECT（非 Apple 例外） |
+| `custom-direct` | → DIRECT（杂项例外；不含 Apple / Steam 下载 CDN） |
 | `apple-direct` | → DIRECT（Apple **下载 CDN** 白名单，非整站 `apple.com`） |
+| `steam-direct` | → DIRECT（Steam **下载 CDN**：`steamcontent.com` / `steamserver.net`） |
 | `custom-reject` | → REJECT |
 | `custom-proxy` | → default `proxy` |
 | `wifi-calling-us` | → `cog-us-lax-v4` |
@@ -26,7 +28,7 @@ Consumers pull by `interval` (clients) or router cron (`NetworkTurbo` `scripts/u
 | `apple-location` | → `yunyoo-gb-ncl` |
 | `wifi-calling-hk` | ruleset only — not wired yet |
 
-Outbound binding lives in NetworkTurbo `confs/`, not here. **新建桶**（如 `apple-direct`）除本仓文件外，还需改 NetworkTurbo：`rule-providers` / `rule_set` 接线 + `update-singbox-rules.sh` 的 `CUSTOMS`。
+Outbound binding lives in NetworkTurbo `confs/`, not here. **新建桶**（如 `apple-direct` / `steam-direct`）除本仓文件外，还需改 NetworkTurbo：`rule-providers` / `rule_set` 接线 + `update-singbox-rules.sh` 的 `CUSTOMS`。
 
 ---
 
@@ -39,7 +41,7 @@ Outbound binding lives in NetworkTurbo `confs/`, not here. **新建桶**（如 `
 3. `git commit` + `push` `main`。
 4. 客户端等 `interval` 或手动更新 rule-providers；路由器等 cron / 手动跑 `update-rules.sh`（改完规则仓本身一般**不必**为 custom-* 重启，除非本地文件已换且服务要热加载——以路由器脚本为准：有变更会 restart）。
 
-Apple 下载 CDN **不要**写进 `custom-direct`，见下方 `apple-direct` SOP。
+Apple / Steam 下载 CDN **不要**写进 `custom-direct`，见下方对应 SOP。
 
 ---
 
@@ -58,7 +60,7 @@ Apple 下载 CDN **不要**写进 `custom-direct`，见下方 `apple-direct` SOP
 
 按地区维护：`wifi-calling-us` / `-uk` / `-hk`；`apple-location` 目前为 `gspe1-ssl.ls.apple.com`、`gspe79-ssl.ls.apple.com`。
 
-**自动化（只读）**：NetworkTurbo `scripts/security-summary.sh` 会拉取上述上游 + 本仓已发布规则，对 ours 做 DoH，并对「上游有、我们没有」的候选再 DoH。HenryChiao / Omada 上仍存活的缺口记 `WARN: MISSING`；Netify 噪声记 `INFO`；上游死域名（NXDOMAIN / `127.0.0.1` / NO_A）**自动跳过**并缓存约 7 天（`~/.cache/networkturbo/wfc-dead-domains.tsv`）。若死域名已在本仓规则里则仍 WARN。写入/push 仍手工。该 SOP 与 `apple-direct` SOP 一样，**默认至少间隔 3 天**才再跑（戳记 `~/.cache/networkturbo/sop-last-run-wifi-calling`）；`--force-sop` 或 `FORCE_RULESET_SOP=1` 可强制。
+**自动化（只读）**：NetworkTurbo `scripts/security-summary.sh` 会拉取上述上游 + 本仓已发布规则，对 ours 做 DoH，并对「上游有、我们没有」的候选再 DoH。HenryChiao / Omada 上仍存活的缺口记 `WARN: MISSING`；Netify 噪声记 `INFO`；上游死域名（NXDOMAIN / `127.0.0.1` / NO_A）**自动跳过**并缓存约 7 天（`~/.cache/networkturbo/wfc-dead-domains.tsv`）。若死域名已在本仓规则里则仍 WARN。写入/push 仍手工。该 SOP 与 `apple-direct` / `steam-direct` SOP 一样，**默认至少间隔 3 天**才再跑（戳记 `~/.cache/networkturbo/sop-last-run-wifi-calling`）；`--force-sop` 或 `FORCE_RULESET_SOP=1` 可强制。
 
 ### 2. 解析校验（必做）
 
@@ -170,3 +172,37 @@ curl -sH 'accept: application/dns-json' \
 - [ ] 无 `itunes.apple.com` / `apps.apple.com` / `idmsa.apple.com` 等登录·API  
 - [ ] 对照过 [101555](https://support.apple.com/en-us/101555) 近期 changelog（页底 Recent changes）  
 - [ ] 已 push；`update-singbox-rules.sh` / 客户端能拉到新内容  
+
+---
+
+## SOP: 检查 Steam 直连（steam-direct）
+
+**文件**：`clash/steam-direct.yaml` + `sing-box/steam-direct.json`（`behavior: domain` / `domain_suffix`）。  
+**策略**：游戏包下载 → `steam-direct`（DIRECT）；商店 / 登录 / 社区 → 不写本桶，落到默认 `proxy`。  
+**禁止**把 Steam CDN 塞回 `custom-direct`；**禁止**把 `steampowered.com` / `steamcommunity.com` / `cm.steampowered.com` 等登录·商店域塞进本桶。
+
+**建议周期**：每半年，或 Steam 客户端大改、下载异常走代理时立刻查。
+
+**自动化（只读）**：NetworkTurbo `scripts/security-summary.sh` 的 `steam-direct` SOP（同步 / 反模式 / DoH / 漏回检查）。戳记 `~/.cache/networkturbo/sop-last-run-steam-direct`，**默认至少间隔 3 天**；`--force-sop` / `FORCE_RULESET_SOP=1` 强制。
+
+### 1. 对照来源
+
+| 来源 | 用途 |
+|------|------|
+| [uklans/cache-domains](https://github.com/uklans/cache-domains) `steam.txt` | Lancache：下载高度收拢到 `steamcontent.com` |
+| [v2fly `data/steam`](https://github.com/v2fly/domain-list-community/blob/master/data/steam) | 全量 Steam 域（含商店/社区/国区）；只摘下载 CDN |
+
+### 2. 本仓应对齐
+
+- 国际下载核心：`steamcontent.com`、`steamserver.net`
+- 国区专用 CDN（`dl.steam.clngaa.com`、`st.dl.*`、`steamchina.com` 等）默认**不加**（国际账号用不上）
+- 商店/登录留给 proxy：`steampowered.com`、`steamcommunity.com`、`cm.steampowered.com`、`steamstatic.com` 等
+
+### 3. 发布与自检
+
+双格式改完 → `commit` + `push` → 客户端 / `update-singbox-rules.sh`（须已含 `steam-direct.json`）。
+
+- [ ] 条目只在 `steam-direct`，不在 `custom-direct`  
+- [ ] clash ↔ sing-box 一致  
+- [ ] 无商店/登录域  
+- [ ] 已 push；消费者能拉到新内容  

@@ -1,0 +1,6 @@
+# Steam game download CDNs → DIRECT (wired in NetworkTurbo).
+# Store / login / community (steampowered, steamcommunity, cm.*) follow default proxy.
+# Refs: uklans/cache-domains, v2fly domain-list-community data/steam
+payload:
+  - "+.steamcontent.com"
+  - "+.steamserver.net"

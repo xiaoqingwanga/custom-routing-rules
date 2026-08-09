@@ -3,8 +3,6 @@
   "rules": [
     {
       "domain_suffix": [
-        "steamcontent.com",
-        "steamserver.net",
         "windowsupdate.com",
         "xboxlive.com",
         "msftconnecttest.com",
