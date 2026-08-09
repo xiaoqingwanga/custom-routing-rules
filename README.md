@@ -58,7 +58,7 @@ Apple 下载 CDN **不要**写进 `custom-direct`，见下方 `apple-direct` SOP
 
 按地区维护：`wifi-calling-us` / `-uk` / `-hk`；`apple-location` 目前为 `gspe1-ssl.ls.apple.com`、`gspe79-ssl.ls.apple.com`。
 
-**自动化（只读）**：NetworkTurbo `scripts/security-summary.sh` 会拉取上述上游 + 本仓已发布规则，对 ours 做 DoH，并对「上游有、我们没有」的候选再 DoH。HenryChiao / Omada 上仍存活的缺口记 `WARN: MISSING`；Netify 噪声记 `INFO`；上游死域名（NXDOMAIN / `127.0.0.1` / NO_A）**自动跳过**并缓存约 7 天（`~/.cache/networkturbo/wfc-dead-domains.tsv`）。若死域名已在本仓规则里则仍 WARN。写入/push 仍手工。
+**自动化（只读）**：NetworkTurbo `scripts/security-summary.sh` 会拉取上述上游 + 本仓已发布规则，对 ours 做 DoH，并对「上游有、我们没有」的候选再 DoH。HenryChiao / Omada 上仍存活的缺口记 `WARN: MISSING`；Netify 噪声记 `INFO`；上游死域名（NXDOMAIN / `127.0.0.1` / NO_A）**自动跳过**并缓存约 7 天（`~/.cache/networkturbo/wfc-dead-domains.tsv`）。若死域名已在本仓规则里则仍 WARN。写入/push 仍手工。该 SOP 与 `apple-direct` SOP 一样，**默认至少间隔 3 天**才再跑（戳记 `~/.cache/networkturbo/sop-last-run-wifi-calling`）；`--force-sop` 或 `FORCE_RULESET_SOP=1` 可强制。
 
 ### 2. 解析校验（必做）
 
@@ -116,6 +116,8 @@ MVNO（如 CTExcel）往往**没有**自有 ePDG，而是宿主网（如 EE `mnc
 
 **建议周期**：每半年，或 Apple 企业网络文档大改、系统大版本更新下不动包、App Store 安装异常时立刻查。
 
+**自动化（只读）**：NetworkTurbo `scripts/security-summary.sh` 的 `apple-direct` SOP：拉已发布 clash + sing-box → 双格式同步 → 反模式（禁整站 `apple.com` / `itunes`·`apps`·`idmsa` 等）→ DoH ours → 检查是否漏回 `custom-direct`。戳记 `~/.cache/networkturbo/sop-last-run-apple-direct`，**默认至少间隔 3 天**；`--force-sop` / `FORCE_RULESET_SOP=1` 强制。对照 [101555](https://support.apple.com/en-us/101555) 增删域名仍手工。
+
 ### 1. 对照官方清单
 
 主源：[Use Apple products on enterprise networks](https://support.apple.com/en-us/101555)（HT211152）。重点看这几节表格：
@@ -123,7 +125,7 @@ MVNO（如 CTExcel）往往**没有**自有 ePDG，而是宿主网（如 EE `mnc
 | 章节 | 直连候选（下载/CDN） | 应留给 proxy（勿塞进 apple-direct） |
 |------|----------------------|--------------------------------------|
 | Software updates | `updates(.cdn-apple)`、`swcdn` / `swdist` / `swdownload`、`appldnld`、`oscdn` / `osrecovery` 等 | `mesu` / `gdmf` / `swscan` 等**目录**；`xp` / `gg` / `gs` 等小流量 API |
-| Apps and additional content | `*.mzstatic.com`；`audiocontentdownload`；`download.developer` / `devimages-cdn`；`playground-*`；`sylvan` | `*.itunes.apple.com`、`*.apps.apple.com`（商店 API / 区服） |
+| Apps and additional content | `*.mzstatic.com`；`audiocontentdownload`；`download.developer` / `devimages-cdn`；`playgrounds-*`；`sylvan` | `*.itunes.apple.com`、`*.apps.apple.com`（商店 API / 区服） |
 | Apple Account | — | `idmsa` / `account` / `gsa` / `appleid.cdn-apple.com`（登录；`cdn-apple` 后缀已直连时静态资源会直连，可接受） |
 | iCloud | `*.icloud-content.com`；`*.cdn-apple.com`（面宽，含更新包） | 一般 `*.icloud.com` API（整站勿直连） |
 
@@ -134,7 +136,7 @@ MVNO（如 CTExcel）往往**没有**自有 ePDG，而是宿主网（如 EE `mnc
 Clash / sing-box **同一批**。当前应大致覆盖：
 
 - 后缀：`mzstatic.com`、`cdn-apple.com`、`icloud-content.com`
-- 主机：`appldnld` / `swcdn` / `swdist` / `swdownload` / `oscdn` / `osrecovery`、`download.developer` / `devimages-cdn`、`audiocontentdownload`、`sylvan`、`playground-cdn` / `playground-assets-cdn`
+- 主机：`appldnld` / `swcdn` / `swdist` / `swdownload` / `oscdn` / `osrecovery`、`download.developer` / `devimages-cdn`、`audiocontentdownload`、`sylvan`、`playgrounds-cdn` / `playgrounds-assets-cdn`（注意官方现为 **playgrounds** 复数）
 
 文档新增「明显大文件」主机时：只加下载侧；**不要**为了省事写 `+.apple.com`。
 

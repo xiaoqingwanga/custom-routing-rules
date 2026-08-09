@@ -15,5 +15,5 @@ payload:
   - "devimages-cdn.apple.com"
   - "audiocontentdownload.apple.com"
   - "sylvan.apple.com"
-  - "playground-cdn.apple.com"
-  - "playground-assets-cdn.apple.com"
+  - "playgrounds-cdn.apple.com"
+  - "playgrounds-assets-cdn.apple.com"
