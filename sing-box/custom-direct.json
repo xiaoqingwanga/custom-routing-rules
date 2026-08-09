@@ -3,21 +3,6 @@
   "rules": [
     {
       "domain_suffix": [
-        "mzstatic.com",
-        "cdn-apple.com",
-        "icloud-content.com",
-        "appldnld.apple.com",
-        "swcdn.apple.com",
-        "swdist.apple.com",
-        "swdownload.apple.com",
-        "oscdn.apple.com",
-        "osrecovery.apple.com",
-        "download.developer.apple.com",
-        "devimages-cdn.apple.com",
-        "audiocontentdownload.apple.com",
-        "sylvan.apple.com",
-        "playground-cdn.apple.com",
-        "playground-assets-cdn.apple.com",
         "steamcontent.com",
         "steamserver.net",
         "windowsupdate.com",

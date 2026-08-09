@@ -1,22 +1,5 @@
 # Domains forced DIRECT (not covered by geosite-cn / zoom).
-# Apple: bulk download CDNs only — App Store / Apple ID API follow proxy (MATCH).
-# Ref: https://support.apple.com/en-us/101555
 payload:
-  - "+.mzstatic.com"
-  - "+.cdn-apple.com"
-  - "+.icloud-content.com"
-  - "appldnld.apple.com"
-  - "swcdn.apple.com"
-  - "swdist.apple.com"
-  - "swdownload.apple.com"
-  - "oscdn.apple.com"
-  - "osrecovery.apple.com"
-  - "download.developer.apple.com"
-  - "devimages-cdn.apple.com"
-  - "audiocontentdownload.apple.com"
-  - "sylvan.apple.com"
-  - "playground-cdn.apple.com"
-  - "playground-assets-cdn.apple.com"
   - "+.steamcontent.com"
   - "+.steamserver.net"
   - "+.windowsupdate.com"

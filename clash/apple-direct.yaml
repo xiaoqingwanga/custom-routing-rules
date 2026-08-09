@@ -1,0 +1,19 @@
+# Apple bulk download CDNs → DIRECT (wired in NetworkTurbo).
+# App Store / Apple ID login & store API are NOT listed — they follow default proxy.
+# Ref: https://support.apple.com/en-us/101555 — see README SOP: 检查 Apple 直连
+payload:
+  - "+.mzstatic.com"
+  - "+.cdn-apple.com"
+  - "+.icloud-content.com"
+  - "appldnld.apple.com"
+  - "swcdn.apple.com"
+  - "swdist.apple.com"
+  - "swdownload.apple.com"
+  - "oscdn.apple.com"
+  - "osrecovery.apple.com"
+  - "download.developer.apple.com"
+  - "devimages-cdn.apple.com"
+  - "audiocontentdownload.apple.com"
+  - "sylvan.apple.com"
+  - "playground-cdn.apple.com"
+  - "playground-assets-cdn.apple.com"
