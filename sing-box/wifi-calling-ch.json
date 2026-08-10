@@ -1,0 +1,38 @@
+{
+  "version": 3,
+  "rules": [
+    {
+      "domain_suffix": [
+        "epdg.epc.mnc001.mcc228.pub.3gppnetwork.org",
+        "swisscom.ch",
+        "wingo.ch",
+        "epdg.epc.mnc002.mcc228.pub.3gppnetwork.org",
+        "sunrise.ch",
+        "yallo.ch",
+        "upc.ch",
+        "epdg.epc.mnc003.mcc228.pub.3gppnetwork.org",
+        "salt.ch",
+        "coopmobile.ch",
+        "epdg.epc.mnc058.mcc228.pub.3gppnetwork.org",
+        "epdg.epc.mnc065.mcc228.pub.3gppnetwork.org",
+        "beeone.ch",
+        "nexphone.ch",
+        "epdg.epc.mnc071.mcc228.pub.3gppnetwork.org",
+        "spusu.ch",
+        "spusu.at"
+      ]
+    },
+    {
+      "ip_cidr": [
+        "138.188.106.248/29",
+        "194.230.147.254/32",
+        "194.230.148.254/32",
+        "213.55.134.249/32",
+        "213.55.135.249/32",
+        "213.55.203.249/32",
+        "5.154.170.93/32",
+        "83.216.32.0/23"
+      ]
+    }
+  ]
+}
