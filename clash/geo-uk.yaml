@@ -1,4 +1,5 @@
-# UK Wi-Fi Calling (VoWiFi / ePDG)
+# UK regional exit (geo-uk) → jjfly-gb-lwt
+# Includes Wi-Fi Calling ePDG + carrier sites (not WFC-only).
 # Base: HenryChiao wificalling-uk.list
 # + EE mnc030/mnc071 (Habitech / Netify); mnc033 kept under EE (same ePDG IPs)
 # Policy: every carrier block includes its consumer website.

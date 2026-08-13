@@ -1,4 +1,5 @@
-# CH Wi-Fi Calling (VoWiFi / ePDG) + carrier sites
+# CH regional exit (geo-ch) → yunyoo-de-fra
+# Includes Wi-Fi Calling ePDG + carrier sites (not WFC-only).
 # Sources: Netify MCC 228 (Swisscom/Sunrise/Salt) + DoH 2026-08-10
 # Live ePDG only. Dropped: mnc012/005/007/008/009/051/053/059/060/062–070 → 127.0.0.1;
 #          mnc054 Lycamobile NXDOMAIN.

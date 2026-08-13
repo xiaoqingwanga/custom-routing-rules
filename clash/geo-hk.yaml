@@ -1,4 +1,5 @@
-# HK Wi-Fi Calling (VoWiFi / ePDG) — ruleset only; not wired in confs yet.
+# HK regional exit (geo-hk) — ruleset only; not wired in confs yet.
+# Includes Wi-Fi Calling ePDG + carrier sites (not WFC-only).
 # Base: HenryChiao wificalling-hk.list
 # + SmarTone mnc006, HKT mnc010/016/019, CMHK mnc012
 # Policy: every carrier block includes its consumer website.

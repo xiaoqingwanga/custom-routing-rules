@@ -7,7 +7,7 @@ Personal domain exceptions for Clash / sing-box. **Rules only — no proxy crede
 | `clash/custom-{direct,reject,proxy}.yaml` | Mihomo / Stash `rule-providers` (`behavior: domain`) |
 | `clash/apple-direct.yaml` | Mihomo / Stash (`behavior: domain`) — Apple download CDNs → DIRECT |
 | `clash/steam-direct.yaml` | Mihomo / Stash (`behavior: domain`) — Steam download CDNs → DIRECT |
-| `clash/wifi-calling-*.yaml`, `clash/apple-location.yaml` | Mihomo / Stash (`behavior: classical`) |
+| `clash/geo-*.yaml`, `clash/apple-location.yaml` | Mihomo / Stash (`behavior: classical`) |
 | `sing-box/*.json` | sing-box `rule_set` (`format: source`) |
 
 Raw base: `https://raw.githubusercontent.com/xiaoqingwanga/custom-routing-rules/main/`
@@ -23,12 +23,12 @@ Consumers pull by `interval` (clients) or router cron (`NetworkTurbo` `scripts/u
 | `steam-direct` | → DIRECT（Steam **下载 CDN**：`steamcontent.com` / `steamserver.net`） |
 | `custom-reject` | → REJECT |
 | `custom-proxy` | → default `proxy` |
-| `wifi-calling-us` | → `cog-us-lax-v4` |
-| `wifi-calling-uk` | → `jjfly-gb-lwt`（经 `yunyoo-de-fra`） |
-| `wifi-calling-de` | → `yunyoo-de-fra` |
-| `wifi-calling-ch` | → `yunyoo-de-fra` |
-| `apple-location` | → `jjfly-gb-lwt`（经 `yunyoo-de-fra`） |
-| `wifi-calling-hk` | ruleset only — not wired yet |
+| `geo-us` | → `cog-us-lax-v4`（含 US ePDG / 运营商站） |
+| `geo-uk` | → `jjfly-gb-lwt`（经 `yunyoo-de-fra`；含 UK ePDG / 运营商站） |
+| `geo-de` | → `yunyoo-de-fra`（含 DE ePDG / 运营商站 / N26） |
+| `geo-ch` | → `yunyoo-de-fra`（含 CH ePDG / 运营商站） |
+| `apple-location` | → `jjfly-gb-lwt`（经 `yunyoo-de-fra`；独立桶） |
+| `geo-hk` | ruleset only — not wired yet |
 
 Outbound binding lives in NetworkTurbo `confs/`, not here. **新建桶**（如 `apple-direct` / `steam-direct`）除本仓文件外，还需改 NetworkTurbo：`rule-providers` / `rule_set` 接线 + `update-singbox-rules.sh` 的 `CUSTOMS`。
 
@@ -47,7 +47,7 @@ Apple / Steam 下载 CDN **不要**写进 `custom-direct`，见下方对应 SOP�
 
 ---
 
-## SOP: 定期更新 Wi-Fi Calling / Apple location
+## SOP: 定期更新地区出口（geo-*）/ Apple location
 
 **建议周期**：每季度，或换卡/WFC 挂掉时立刻查。
 
@@ -60,9 +60,9 @@ Apple / Steam 下载 CDN **不要**写进 `custom-direct`，见下方对应 SOP�
 - 网关目录：[Netify mobile gateways](https://www.netify.ai/resources/mobile-gateways)（按国家 MCC）
 - 论坛/实测（如某 MVNO 实际解析到的 ePDG）
 
-按地区维护：`wifi-calling-us` / `-uk` / `-de` / `-ch` / `-hk`；`apple-location` 目前为 `gspe1-ssl.ls.apple.com`、`gspe79-ssl.ls.apple.com`。
+按地区维护：`geo-us` / `geo-uk` / `geo-de` / `geo-ch` / `geo-hk`；`apple-location` 目前为 `gspe1-ssl.ls.apple.com`、`gspe79-ssl.ls.apple.com`（独立桶，不并进 `geo-uk`）。
 
-**自动化（只读）**：NetworkTurbo `scripts/security-summary.sh` 会拉取上述上游 + 本仓已发布规则，对 ours 做 DoH，并对「上游有、我们没有」的候选再 DoH。HenryChiao / Omada 上仍存活的缺口记 `WARN: MISSING`；Netify 噪声记 `INFO`；上游死域名（NXDOMAIN / `127.0.0.1` / NO_A）**自动跳过**并缓存约 7 天（`~/.cache/networkturbo/wfc-dead-domains.tsv`）。若死域名已在本仓规则里则仍 WARN。写入/push 仍手工。该 SOP 与 `apple-direct` / `steam-direct` SOP 一样，**默认至少间隔 3 天**才再跑（戳记 `~/.cache/networkturbo/sop-last-run-wifi-calling`）；`--force-sop` 或 `FORCE_RULESET_SOP=1` 可强制。
+**自动化（只读）**：NetworkTurbo `scripts/security-summary.sh` 会拉取上述上游 + 本仓已发布规则，对 ours 做 DoH，并对「上游有、我们没有」的候选再 DoH。HenryChiao / Omada 上仍存活的缺口记 `WARN: MISSING`；Netify 噪声记 `INFO`；上游死域名（NXDOMAIN / `127.0.0.1` / NO_A）**自动跳过**并缓存约 7 天（`~/.cache/networkturbo/wfc-dead-domains.tsv`）。若死域名已在本仓规则里则仍 WARN。写入/push 仍手工。该 SOP 与 `apple-direct` / `steam-direct` SOP 一样，**默认至少间隔 3 天**才再跑（戳记 `~/.cache/networkturbo/sop-last-run-geo`）；`--force-sop` 或 `FORCE_RULESET_SOP=1` 可强制。
 
 ### 2. 解析校验（必做）
 
@@ -161,7 +161,7 @@ curl -sH 'accept: application/dns-json' \
 |------|------|
 | App / 系统更新 / Xcode 组件包体 | DIRECT（`apple-direct`） |
 | App Store 登录、购买、商店页 API | proxy（`itunes` / `apps` / `idmsa` 等） |
-| `apple-location` / Wi‑Fi Calling | 专用规则优先于 `apple-direct`（出站在 NetworkTurbo `confs/`） |
+| `apple-location` / `geo-*` | 专用规则优先于 `apple-direct`（出站在 NetworkTurbo `confs/`） |
 
 ### 5. 发布
 

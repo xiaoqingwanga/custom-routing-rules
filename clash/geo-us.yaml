@@ -1,4 +1,5 @@
-# US Wi-Fi Calling (VoWiFi / ePDG)
+# US regional exit (geo-us) → cog-us-lax-v4
+# Includes Wi-Fi Calling ePDG + carrier sites (not WFC-only).
 # Base: HenryChiao wificalling-us.list
 # + Verizon wo.vzwwo.com (Omada); dropped DOMAIN-KEYWORD + optimizely.com
 # Policy: every carrier block includes its consumer website.
