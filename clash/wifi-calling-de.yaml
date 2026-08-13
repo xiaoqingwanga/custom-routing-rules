@@ -1,7 +1,7 @@
 # DE Wi-Fi Calling (VoWiFi / ePDG) + carrier sites
 # Base: HenryChiao wificalling-de.list + Netify MCC 262 (2026-08-09 DoH)
 # Dropped: mnc004 NXDOMAIN; mnc042/043 → 127.0.0.1; mnc020 (no clear brand);
-#          ims.mnc002 NXDOMAIN; vodafone-dns.net NXDOMAIN; n26.com (not a carrier)
+#          ims.mnc002 NXDOMAIN; vodafone-dns.net NXDOMAIN; tech26.de (NS only, no A)
 # Policy: every carrier block includes its consumer website.
 payload:
   # Deutsche Telekom (mnc001)
@@ -47,3 +47,8 @@ payload:
   - DOMAIN-SUFFIX,lebara.com
   - IP-CIDR,84.246.113.151/32,no-resolve
   - IP-CIDR,84.246.115.151/32,no-resolve
+
+  # N26 (German bank; HenryChiao location list, not a carrier).
+  # Listed so DE exit applies; AWS A records churn — no IP-CIDR.
+  - DOMAIN-SUFFIX,n26.com
+  - DOMAIN-SUFFIX,support.n26.com
