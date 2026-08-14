@@ -50,3 +50,6 @@ payload:
   - IP-CIDR,148.252.160.0/19,no-resolve
   - IP-CIDR,148.252.188.0/24,no-resolve
   - IP-CIDR,62.141.11.56/24,no-resolve
+
+  # Krak (UK money app; no geosite:krak)
+  - DOMAIN-SUFFIX,krak.app
