@@ -24,8 +24,8 @@ Consumers pull by `interval` (clients) or router cron (`NetworkTurbo` `scripts/u
 | `custom-reject` | → REJECT |
 | `custom-proxy` | → default `proxy` |
 | `geo-us` | → `cog-us-lax-v4`（含 US ePDG / 运营商站；DNS `us-relay`） |
-| `geo-uk` | → `jjfly-gb-lwt`（经 `yunyoo-de-fra`；含 UK ePDG / 运营商站 / Krak；DNS `jjfly-gb-lwt`） |
-| `geo-de` | → `yunyoo-de-fra`（含 DE ePDG / 运营商站 / N26；DNS `yunyoo-de-fra`） |
+| `geo-uk` | → `jjfly-gb-lwt`（经 `yunyoo-de-fra`；含 UK ePDG / 运营商站 / Krak；iFAST 用 `geosite:ifast` 在 confs 分组；DNS `jjfly-gb-lwt`） |
+| `geo-de` | → `yunyoo-de-fra`（含 DE ePDG / 运营商站；N26 用 `geosite:n26` 在 confs 分组；DNS `yunyoo-de-fra`） |
 | `apple-location` | → `jjfly-gb-lwt`（经 `yunyoo-de-fra`；独立桶） |
 | `geo-hk` | ruleset only — not wired yet |
 
