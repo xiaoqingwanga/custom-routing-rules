@@ -1,4 +1,5 @@
 # US regional exit (geo-us) → cog-us-lax-v4
+# Domain-only. IP CIDRs live in geo-us-ip.yaml (route only; never DNS).
 # Includes Wi-Fi Calling ePDG + carrier sites (not WFC-only).
 # Base: HenryChiao wificalling-us.list
 # + Verizon wo.vzwwo.com (Omada); dropped DOMAIN-KEYWORD + optimizely.com
@@ -10,7 +11,6 @@ payload:
   - DOMAIN-SUFFIX,sentitlement2.mobile.att.net
   - DOMAIN-SUFFIX,vvm.mobile.att.net
   - DOMAIN-SUFFIX,att.com
-  - IP-CIDR,107.122.31.0/32,no-resolve
 
   # T-Mobile / Ultra Mobile / Helium Mobile
   - DOMAIN-SUFFIX,crl.t-mobile.com
@@ -25,9 +25,6 @@ payload:
   - DOMAIN-SUFFIX,ultramobile.com
   - DOMAIN-SUFFIX,ss.epdg.epc.mnc260.mcc310.pub.3gppnetwork.org
   - DOMAIN-SUFFIX,ss.epdg.epc.geo.mnc260.mcc310.pub.3gppnetwork.org
-  - IP-CIDR,206.29.177.36/32,no-resolve
-  - IP-CIDR,208.54.0.0/16,no-resolve
-  - IP-CIDR,66.94.0.0/19,no-resolve
 
   # Verizon
   - DOMAIN-SUFFIX,wo.vzwwo.com

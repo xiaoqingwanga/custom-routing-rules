@@ -1,4 +1,5 @@
 # HK regional exit (geo-hk) — ruleset only; not wired in confs yet.
+# Domain-only. IP CIDRs live in geo-hk-ip.yaml (route only; never DNS).
 # Includes Wi-Fi Calling ePDG + carrier sites (not WFC-only).
 # Base: HenryChiao wificalling-hk.list
 # + SmarTone mnc006, HKT mnc010/016/019, CMHK mnc012
@@ -27,20 +28,7 @@ payload:
   # SmarTone
   - DOMAIN-SUFFIX,epdg.epc.mnc006.mcc454.pub.3gppnetwork.org
   - DOMAIN-SUFFIX,smartone.com
-  - IP-CIDR,180.219.134.18/32,no-resolve
 
   # CMHK
   - DOMAIN-SUFFIX,epdg.epc.mnc012.mcc454.pub.3gppnetwork.org
   - DOMAIN-SUFFIX,hk.chinamobile.com
-  - IP-CIDR,182.239.86.1/32,no-resolve
-  - IP-CIDR,182.239.118.1/32,no-resolve
-
-  # IP ranges (HenryChiao)
-  - IP-CIDR,203.145.92.0/32,no-resolve
-  - IP-CIDR,203.145.88.0/21,no-resolve
-  - IP-CIDR,203.145.80.0/20,no-resolve
-  - IP-CIDR,124.217.186.0/32,no-resolve
-  - IP-CIDR,124.217.128.0/18,no-resolve
-  - IP-CIDR,120.88.224.0/32,no-resolve
-  - IP-CIDR,120.88.240.0/32,no-resolve
-  - IP-CIDR,4.209.41.0/24,no-resolve

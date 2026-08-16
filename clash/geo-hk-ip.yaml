@@ -1,0 +1,19 @@
+# HK regional exit IPs (geo-hk-ip) — ruleset only; not wired in confs yet.
+# Route only. Do not use in DNS nameserver-policy (sing-box address-filter footgun).
+payload:
+  # SmarTone
+  - IP-CIDR,180.219.134.18/32,no-resolve
+
+  # CMHK
+  - IP-CIDR,182.239.86.1/32,no-resolve
+  - IP-CIDR,182.239.118.1/32,no-resolve
+
+  # IP ranges (HenryChiao)
+  - IP-CIDR,203.145.92.0/32,no-resolve
+  - IP-CIDR,203.145.88.0/21,no-resolve
+  - IP-CIDR,203.145.80.0/20,no-resolve
+  - IP-CIDR,124.217.186.0/32,no-resolve
+  - IP-CIDR,124.217.128.0/18,no-resolve
+  - IP-CIDR,120.88.224.0/32,no-resolve
+  - IP-CIDR,120.88.240.0/32,no-resolve
+  - IP-CIDR,4.209.41.0/24,no-resolve

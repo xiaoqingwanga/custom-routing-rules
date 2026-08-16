@@ -7,8 +7,8 @@ Personal domain exceptions for Clash / sing-box. **Rules only — no proxy crede
 | `clash/custom-{direct,reject,proxy}.yaml` | Mihomo / Stash `rule-providers` (`behavior: domain`) |
 | `clash/apple-direct.yaml` | Mihomo / Stash (`behavior: domain`) — Apple download CDNs → DIRECT |
 | `clash/steam-direct.yaml` | Mihomo / Stash (`behavior: domain`) — Steam download CDNs → DIRECT |
-| `clash/geo-*.yaml`, `clash/apple-location.yaml` | Mihomo / Stash (`behavior: classical`) |
-| `sing-box/*.json` | sing-box `rule_set` (`format: source`) |
+| `clash/geo-*.yaml`, `clash/apple-location.yaml` | Mihomo / Stash (`behavior: classical`); `geo-*-ip.yaml` 仅 IP，只给路由 |
+| `sing-box/*.json` | sing-box `rule_set` (`format: source`)；`geo-*-ip.json` 仅 IP，只给路由 |
 
 Raw base: `https://raw.githubusercontent.com/xiaoqingwanga/custom-routing-rules/main/`
 
@@ -23,11 +23,15 @@ Consumers pull by `interval` (clients) or router cron (`NetworkTurbo` `scripts/u
 | `steam-direct` | → DIRECT（Steam **下载 CDN**：`steamcontent.com` / `steamserver.net`） |
 | `custom-reject` | → REJECT |
 | `custom-proxy` | → default `proxy` |
-| `geo-us` | → `cog-us-lax-v4`（含 US ePDG / 运营商站；DNS `us-relay`） |
-| `geo-uk` | → `jjfly-gb-lwt`（经 `yunyoo-de-fra`；含 UK ePDG / 运营商站 / Krak；iFAST 用 `geosite:ifast` 在 confs 分组；DNS `jjfly-gb-lwt`） |
-| `geo-de` | → `yunyoo-de-fra`（含 DE ePDG / 运营商站；N26 用 `geosite:n26` 在 confs 分组；DNS `yunyoo-de-fra`） |
+| `geo-us` | → `cog-us-lax-v4`（域名：US ePDG / 运营商站；DNS `us-relay`） |
+| `geo-us-ip` | → `cog-us-lax-v4`（仅 IP；**只进路由，禁止进 DNS**） |
+| `geo-uk` | → `jjfly-gb-lwt`（域名：UK ePDG / 运营商站 / Krak；iFAST 用 `geosite:ifast` 在 confs 分组；DNS `jjfly-gb-lwt`） |
+| `geo-uk-ip` | → `jjfly-gb-lwt`（仅 IP；**只进路由，禁止进 DNS**） |
+| `geo-de` | → `yunyoo-de-fra`（域名：DE ePDG / 运营商站；N26 用 `geosite:n26` 在 confs 分组；DNS `yunyoo-de-fra`） |
+| `geo-de-ip` | → `yunyoo-de-fra`（仅 IP；**只进路由，禁止进 DNS**） |
 | `apple-location` | → `jjfly-gb-lwt`（经 `yunyoo-de-fra`；独立桶） |
-| `geo-hk` | ruleset only — not wired yet |
+| `geo-hk` | ruleset only — not wired yet（域名） |
+| `geo-hk-ip` | ruleset only — not wired yet（仅 IP） |
 
 Outbound binding lives in NetworkTurbo `confs/`, not here. **新建桶**（如 `apple-direct` / `steam-direct`）除本仓文件外，还需改 NetworkTurbo：`rule-providers` / `rule_set` 接线 + `update-singbox-rules.sh` 的 `CUSTOMS`。
 
@@ -87,8 +91,10 @@ MVNO（如 CTExcel）往往**没有**自有 ePDG，而是宿主网（如 EE `mnc
 
 | | Clash (`behavior: classical`) | sing-box (`format: source`) |
 |--|-------------------------------|-----------------------------|
-| 域名 | `DOMAIN-SUFFIX,example.com` | `domain_suffix: ["example.com"]` |
-| IP | `IP-CIDR,x.x.x.x/y,no-resolve` | `ip_cidr: ["x.x.x.x/y"]` |
+| 域名 | `geo-xx.yaml`：`DOMAIN-SUFFIX,example.com` | `geo-xx.json`：`domain_suffix` |
+| IP | `geo-xx-ip.yaml`：`IP-CIDR,x.x.x.x/y,no-resolve` | `geo-xx-ip.json`：单独一条 `ip_cidr` |
+
+**禁止**把 `domain_suffix` 和 `ip_cidr` 做成 rule-set 里两条 OR 规则再拿去配 **DNS**。sing-box 会把「只有 IP、没有域名」的那条当成 address-filter：所有 A/HTTPS 先走该 DNS 桶；上游超时则整查询失败（不会落到 `geosite-cn`）。IP 段只写进 `geo-*-ip`，且 **只接线到 `route.rules` / Clash `RULE-SET`，不要进 `dns.rules` / `nameserver-policy`**。
 
 注意：
 
