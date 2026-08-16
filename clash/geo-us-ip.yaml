@@ -1,10 +1,13 @@
 # US regional exit IPs (geo-us-ip) → cog-us-lax-v4
 # Route only. Do not use in DNS nameserver-policy (sing-box address-filter footgun).
 payload:
-  # AT&T
-  - IP-CIDR,107.122.31.0/32,no-resolve
+  # AT&T (DoH 2026-08-16: 107.122.31.21/31; was /32 of .0)
+  - IP-CIDR,107.122.31.0/24,no-resolve
 
   # T-Mobile / Ultra Mobile
   - IP-CIDR,206.29.177.36/32,no-resolve
   - IP-CIDR,208.54.0.0/16,no-resolve
   - IP-CIDR,66.94.0.0/19,no-resolve
+
+  # Verizon wo.vzwwo.com (DoH 2026-08-16: 141.207.209.233/227.233; geo anycast in 141.207.0.0/16)
+  - IP-CIDR,141.207.0.0/16,no-resolve
