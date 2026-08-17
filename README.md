@@ -65,7 +65,7 @@ Apple / Steam 下载 CDN **不要**写进 `custom-direct`，见下方对应 SOP�
 
 按地区维护：`geo-us` / `geo-uk` / `geo-de` / `geo-hk`；`apple-location` 目前为 `gspe1-ssl.ls.apple.com`、`gspe79-ssl.ls.apple.com`（独立桶，不并进 `geo-uk`）。
 
-**自动化（只读）**：NetworkTurbo `scripts/security-summary.sh` 会拉取上述上游 + 本仓已发布规则，对 ours 做 DoH，并对「上游有、我们没有」的候选再 DoH。ours 里 **ePDG FQDN**（`*epdg*` / `wo.vzwwo.com`）若有公网 A，再对照同桶 `geo-*-ip` CIDR：未覆盖记 `WARN`（补 `IP-CIDR`；只进路由、勿进 DNS）。同时核对 clash yaml ↔ sing-box json 的 CIDR 集合。HenryChiao / Omada 上仍存活的缺口记 `WARN: MISSING`；Netify 噪声记 `INFO`；上游死域名（NXDOMAIN / `127.0.0.1` / NO_A）**自动跳过**并缓存约 7 天（`~/.cache/networkturbo/wfc-dead-domains.tsv`）。若死域名已在本仓规则里则仍 WARN。写入/push 仍手工。该 SOP 与 `apple-direct` / `steam-direct` SOP 一样，**默认至少间隔 3 天**才再跑（戳记 `~/.cache/networkturbo/sop-last-run-geo`）；`--force-sop` 或 `FORCE_RULESET_SOP=1` 可强制。
+**自动化（只读）**：NetworkTurbo `scripts/security-summary.sh` 会拉取上述上游 + 本仓已发布规则，对 ours 做 DoH，并对「上游有、我们没有」的候选再 DoH。ours 里 **ePDG FQDN**（`*epdg*` / `wo.vzwwo.com`）若有公网 A，再对照同桶 `geo-*-ip` CIDR：未覆盖记 `WARN`（补 `IP-CIDR`；只进路由、勿进 DNS）。同时核对 clash yaml ↔ sing-box json 的 CIDR 集合。HenryChiao / Omada 上仍存活的缺口记 `WARN: MISSING`；**已由 confs 分组的 companion geosite 覆盖的不算缺口**（如 `geosite:n26` 覆盖 Henry 的 `n26.com` / `support.n26.com`，勿再抄进 `geo-de`）；Netify 噪声记 `INFO`；上游死域名（NXDOMAIN / `127.0.0.1` / NO_A）**自动跳过**并缓存约 7 天（`~/.cache/networkturbo/wfc-dead-domains.tsv`）。若死域名已在本仓规则里则仍 WARN。写入/push 仍手工。该 SOP 与 `apple-direct` / `steam-direct` SOP 一样，**默认至少间隔 3 天**才再跑（戳记 `~/.cache/networkturbo/sop-last-run-geo`）；`--force-sop` 或 `FORCE_RULESET_SOP=1` 可强制。
 
 ### 2. 解析校验（必做）
 
