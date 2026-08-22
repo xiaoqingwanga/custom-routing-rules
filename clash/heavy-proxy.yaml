@@ -1,0 +1,3 @@
+# Domains that need high-bandwidth proxy (wired to bv-us-lax in NetworkTurbo).
+payload:
+  - "+.pvq.cc"

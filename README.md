@@ -5,6 +5,7 @@ Personal domain exceptions for Clash / sing-box. **Rules only — no proxy crede
 | Path | Consumer |
 |------|----------|
 | `clash/custom-{direct,reject,proxy}.yaml` | Mihomo / Stash `rule-providers` (`behavior: domain`) |
+| `clash/heavy-proxy.yaml` | Mihomo / Stash (`behavior: domain`) — high-bandwidth sites → `bv-us-lax` |
 | `clash/apple-direct.yaml` | Mihomo / Stash (`behavior: domain`) — Apple download CDNs → DIRECT |
 | `clash/steam-direct.yaml` | Mihomo / Stash (`behavior: domain`) — Steam download CDNs → DIRECT |
 | `clash/geo-*.yaml`, `clash/apple-location.yaml` | Mihomo / Stash (`behavior: classical`); `geo-*-ip.yaml` 仅 IP，只给路由 |
@@ -23,6 +24,7 @@ Consumers pull by `interval` (clients) or router cron (`NetworkTurbo` `scripts/u
 | `steam-direct` | → DIRECT（Steam **下载 CDN**：`steamcontent.com` / `steamserver.net`） |
 | `custom-reject` | → REJECT |
 | `custom-proxy` | → default `proxy` |
+| `heavy-proxy` | → `bv-us-lax`（需要大流量代理的站点；DNS `bv-us-lax`） |
 | `geo-us` | → `cog-us-lax-v4`（域名：US ePDG / 运营商站；DNS `us-relay`） |
 | `geo-us-ip` | → `cog-us-lax-v4`（仅 IP；**只进路由，禁止进 DNS**） |
 | `geo-uk` | → `jjfly-gb-lwt`（域名：UK ePDG / 运营商站 / Krak；iFAST 用 `geosite:ifast` 在 confs 分组；DNS `jjfly-gb-lwt`） |
@@ -37,14 +39,14 @@ Outbound binding lives in NetworkTurbo `confs/`, not here. **新建桶**（如 `
 
 ---
 
-## SOP: 日常例外域名（custom-*）
+## SOP: 日常例外域名（custom-* / heavy-proxy）
 
 1. 在对应文件加/删域名：
-   - Clash：`clash/custom-*.yaml` 的 `payload`（`+.example.com`）
-   - sing-box：`sing-box/custom-*.json` 的 `domain_suffix`（无前导 `.`）
+   - Clash：`clash/custom-*.yaml` / `clash/heavy-proxy.yaml` 的 `payload`（`+.example.com`）
+   - sing-box：`sing-box/custom-*.json` / `sing-box/heavy-proxy.json` 的 `domain_suffix`（无前导 `.`）
 2. **两边必须同步**（同一批域名）。
 3. `git commit` + `push` `main`。
-4. 客户端等 `interval` 或手动更新 rule-providers；路由器等 cron / 手动跑 `update-rules.sh`（改完规则仓本身一般**不必**为 custom-* 重启，除非本地文件已换且服务要热加载——以路由器脚本为准：有变更会 restart）。
+4. 客户端等 `interval` 或手动更新 rule-providers；路由器等 cron / 手动跑 `update-rules.sh`（改完规则仓本身一般**不必**为 custom-* / heavy-proxy 重启，除非本地文件已换且服务要热加载——以路由器脚本为准：有变更会 restart）。
 
 Apple / Steam 下载 CDN **不要**写进 `custom-direct`，见下方对应 SOP。
 
