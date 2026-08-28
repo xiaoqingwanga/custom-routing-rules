@@ -5,7 +5,7 @@ Personal domain exceptions for Clash / sing-box. **Rules only — no proxy crede
 | Path | Consumer |
 |------|----------|
 | `clash/custom-{direct,reject,proxy}.yaml` | Mihomo / Stash `rule-providers` (`behavior: domain`) |
-| `clash/heavy-proxy.yaml` | Mihomo / Stash (`behavior: domain`) — high-bandwidth sites → `bv-us-lax` |
+| `clash/heavy-proxy.yaml` | Mihomo / Stash (`behavior: domain`) — high-bandwidth sites |
 | `clash/apple-direct.yaml` | Mihomo / Stash (`behavior: domain`) — Apple download CDNs → DIRECT |
 | `clash/steam-direct.yaml` | Mihomo / Stash (`behavior: domain`) — Steam download CDNs → DIRECT |
 | `clash/geo-*.yaml`, `clash/apple-location.yaml` | Mihomo / Stash (`behavior: classical`); `geo-*-ip.yaml` 仅 IP，只给路由 |
@@ -24,14 +24,14 @@ Consumers pull by `interval` (clients) or router cron (`NetworkTurbo` `scripts/u
 | `steam-direct` | → DIRECT（Steam **下载 CDN**：`steamcontent.com` / `steamserver.net`） |
 | `custom-reject` | → REJECT |
 | `custom-proxy` | → default `proxy` |
-| `heavy-proxy` | → `bv-us-lax`（需要大流量代理的站点；DNS `bv-us-lax`） |
-| `geo-us` | → `cog-us-lax-v4`（域名：US ePDG / 运营商站；DNS `us-relay`） |
-| `geo-us-ip` | → `cog-us-lax-v4`（仅 IP；**只进路由，禁止进 DNS**） |
-| `geo-uk` | → `jjfly-gb-lwt`（域名：UK ePDG / 运营商站 / Krak；iFAST 用 `geosite:ifast` 在 confs 分组；DNS `jjfly-gb-lwt`） |
-| `geo-uk-ip` | → `jjfly-gb-lwt`（仅 IP；**只进路由，禁止进 DNS**） |
-| `geo-de` | → `yunyoo-de-fra`（域名：DE ePDG / 运营商站；N26 用 `geosite:n26` 在 confs 分组；DNS `yunyoo-de-fra`） |
-| `geo-de-ip` | → `yunyoo-de-fra`（仅 IP；**只进路由，禁止进 DNS**） |
-| `apple-location` | → `jjfly-gb-lwt`（经 `yunyoo-de-fra`；独立桶） |
+| `heavy-proxy` | → high-bandwidth proxy bucket（需要大流量代理的站点） |
+| `geo-us` | → US regional outbound（域名：US ePDG / 运营商站） |
+| `geo-us-ip` | → US regional outbound（仅 IP；**只进路由，禁止进 DNS**） |
+| `geo-uk` | → UK regional outbound（域名：UK ePDG / 运营商站 / Krak；iFAST 用 `geosite:ifast` 在 consumer 配置分组） |
+| `geo-uk-ip` | → UK regional outbound（仅 IP；**只进路由，禁止进 DNS**） |
+| `geo-de` | → DE regional outbound（域名：DE ePDG / 运营商站；N26 用 `geosite:n26` 在 consumer 配置分组） |
+| `geo-de-ip` | → DE regional outbound（仅 IP；**只进路由，禁止进 DNS**） |
+| `apple-location` | → Apple location outbound（独立桶） |
 | `geo-hk` | ruleset only — not wired yet（域名） |
 | `geo-hk-ip` | ruleset only — not wired yet（仅 IP） |
 
