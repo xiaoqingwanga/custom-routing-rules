@@ -1,4 +1,23 @@
-# Domains that need high-bandwidth proxy (wired to bv-us-lax in NetworkTurbo).
+# Domains that need high-bandwidth proxy.
 payload:
+  # Video / streaming CDNs
   - "+.googlevideo.com"
+  - "+.nflxvideo.net"
+  - "+.edge.bamgrid.com"
+
+  # Large file / app download CDNs
+  - "+.teraboxcdn.com"
+  - "+.oculuscdn.com"
+
+  # Adult video CDNs
+  - "+.ahcdn.com"
+  - "+.bcvcdn.com"
+  - "+.phncdn.com"
+  - "+.rdtcdn.com"
+  - "+.xvideos-cdn.com"
+  - "+.xnxx-cdn.com"
+  - "+.ypncdn.com"
+
+  # Site-specific heavy exceptions
+  - "+.mushroomtrack.com"
   - "+.pvq.cc"
