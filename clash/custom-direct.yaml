@@ -1,6 +1,6 @@
 # Domains forced DIRECT (not covered by geosite-cn / zoom).
-# Steam download CDNs live in steam-direct — do not put them here.
 payload:
+  # Misc direct exceptions
   - "+.windowsupdate.com"
   - "+.xboxlive.com"
   - "+.msftconnecttest.com"
@@ -9,3 +9,28 @@ payload:
   - "+.iris520.vip"
   - "dl.delivery.mp.microsoft.com"
   - "tlu.dl.delivery.mp.microsoft.com"
+
+  # Apple bulk download CDNs.
+  # App Store / Apple ID login & store API follow default proxy.
+  # Ref: https://support.apple.com/en-us/101555
+  - "+.mzstatic.com"
+  - "+.cdn-apple.com"
+  - "+.icloud-content.com"
+  - "appldnld.apple.com"
+  - "swcdn.apple.com"
+  - "swdist.apple.com"
+  - "swdownload.apple.com"
+  - "oscdn.apple.com"
+  - "osrecovery.apple.com"
+  - "download.developer.apple.com"
+  - "devimages-cdn.apple.com"
+  - "audiocontentdownload.apple.com"
+  - "sylvan.apple.com"
+  - "playgrounds-cdn.apple.com"
+  - "playgrounds-assets-cdn.apple.com"
+
+  # Steam game download CDNs.
+  # Store / login / community follow default proxy.
+  # Refs: uklans/cache-domains, v2fly domain-list-community data/steam
+  - "+.steamcontent.com"
+  - "+.steamserver.net"
