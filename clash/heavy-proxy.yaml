@@ -21,3 +21,4 @@ payload:
   # Site-specific heavy exceptions
   - "+.mushroomtrack.com"
   - "+.pvq.cc"
+  - "+.uhdnow.com"
