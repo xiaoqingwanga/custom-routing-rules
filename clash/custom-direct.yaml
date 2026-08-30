@@ -11,6 +11,15 @@ payload:
   - "dl.delivery.mp.microsoft.com"
   - "tlu.dl.delivery.mp.microsoft.com"
 
+  # NVIDIA driver / NVIDIA App downloads.
+  # Keep GeForce NOW streaming and account/API traffic on the normal path.
+  - "+.download.nvidia.com"
+  - "developer.download.nvidia.com"
+  - "international.download.nvidia.com"
+  - "us.download.nvidia.com"
+  - "ota-downloads.nvidia.com"
+  - "gfwsl.geforce.com"
+
   # Apple bulk download CDNs.
   # App Store / Apple ID login & store API follow default proxy.
   # Ref: https://support.apple.com/en-us/101555
