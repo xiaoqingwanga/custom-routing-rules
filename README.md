@@ -5,7 +5,7 @@ Personal domain exceptions for Clash / sing-box. **Rules only — no proxy crede
 | Path | Consumer |
 |------|----------|
 | `clash/custom-{direct,reject,proxy}.yaml` | Mihomo / Stash `rule-providers` (`behavior: domain`) |
-| `clash/sg-geo.yaml` | Mihomo / Stash (`behavior: domain`) — SG regional sites |
+| `clash/sg-geo.yaml` | Mihomo / Stash (`behavior: classical`) — SG regional sites |
 | `clash/heavy-proxy.yaml` | Mihomo / Stash (`behavior: domain`) — high-bandwidth sites |
 | `clash/geo-*.yaml`, `clash/apple-location.yaml` | Mihomo / Stash (`behavior: classical`); `geo-*-ip.yaml` 仅 IP，只给路由 |
 | `sing-box/*.json` | sing-box `rule_set` (`format: source`)；`geo-*-ip.json` 仅 IP，只给路由 |

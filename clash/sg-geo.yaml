@@ -1,3 +1,4 @@
-# Singapore regional domain rules.
+# SG regional exit (sg-geo) -> sg-auto
+# Domain-only.
 payload:
-  - "+.dicey.com"
+  - DOMAIN-SUFFIX,dicey.com
