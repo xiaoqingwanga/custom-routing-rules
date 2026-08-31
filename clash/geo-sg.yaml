@@ -1,4 +1,4 @@
-# SG regional exit (sg-geo) -> sg-auto
+# SG regional exit (geo-sg) -> sg-auto
 # Domain-only.
 payload:
   - DOMAIN-SUFFIX,dicey.com
