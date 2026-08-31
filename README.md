@@ -22,11 +22,11 @@ Consumers pull by `interval` (clients) or router cron (`NetworkTurbo` `scripts/u
 | `custom-reject` | → REJECT |
 | `custom-proxy` | → default `proxy` |
 | `heavy-proxy` | → high-bandwidth proxy bucket（需要大流量代理的站点） |
-| `sg-geo` | → SG regional outbound（域名） |
 | `geo-us` | → US regional outbound（域名：US ePDG / 运营商站） |
 | `geo-us-ip` | → US regional outbound（仅 IP；**只进路由，禁止进 DNS**） |
 | `geo-uk` | → UK regional outbound（域名：UK ePDG / 运营商站 / Krak；iFAST 用 `geosite:ifast` 在 consumer 配置分组） |
 | `geo-uk-ip` | → UK regional outbound（仅 IP；**只进路由，禁止进 DNS**） |
+| `sg-geo` | → SG regional outbound（域名） |
 | `geo-de` | → DE regional outbound（域名：DE ePDG / 运营商站；N26 用 `geosite:n26` 在 consumer 配置分组） |
 | `geo-de-ip` | → DE regional outbound（仅 IP；**只进路由，禁止进 DNS**） |
 | `apple-location` | → Apple location outbound（独立桶） |
