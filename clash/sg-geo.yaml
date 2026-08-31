@@ -1,0 +1,3 @@
+# Singapore regional domain rules.
+payload:
+  - "+.dicey.com"
