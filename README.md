@@ -4,7 +4,7 @@ Personal domain exceptions for Clash / sing-box. **Rules only — no proxy crede
 
 | Path | Consumer |
 |------|----------|
-| `clash/custom-{direct,reject,proxy}.yaml` | Mihomo / Stash `rule-providers` (`behavior: domain`) |
+| `clash/custom-{direct,reject,proxy,sg}.yaml` | Mihomo / Stash `rule-providers` (`behavior: domain`) |
 | `clash/heavy-proxy.yaml` | Mihomo / Stash (`behavior: domain`) — high-bandwidth sites |
 | `clash/geo-*.yaml`, `clash/apple-location.yaml` | Mihomo / Stash (`behavior: classical`); `geo-*-ip.yaml` 仅 IP，只给路由 |
 | `sing-box/*.json` | sing-box `rule_set` (`format: source`)；`geo-*-ip.json` 仅 IP，只给路由 |
@@ -19,6 +19,7 @@ Consumers pull by `interval` (clients) or router cron (`NetworkTurbo` `scripts/u
 |------|-----------------------------------------------------------|
 | `custom-direct` | → DIRECT（杂项例外 + Apple / Steam 下载 CDN；非整站 `apple.com`，不含商店/登录/社区） |
 | `custom-reject` | → REJECT |
+| `custom-sg` | → SG regional outbound |
 | `custom-proxy` | → default `proxy` |
 | `heavy-proxy` | → high-bandwidth proxy bucket（需要大流量代理的站点） |
 | `geo-us` | → US regional outbound（域名：US ePDG / 运营商站） |
