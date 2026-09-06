@@ -3,7 +3,7 @@
 # Includes Wi-Fi Calling ePDG and carrier sites.
 # N26 is geosite:n26, grouped with this bucket in NetworkTurbo confs (not listed here).
 # Base: HenryChiao wificalling-de.list + Netify MCC 262 (2026-08-09 DoH)
-# Dropped: mnc004 NXDOMAIN; mnc042/043 → 127.0.0.1; mnc020 (no clear brand);
+# Dropped: mnc004 NXDOMAIN; mnc042 → 127.0.0.1; mnc020 (no clear brand);
 #          ims.mnc002 NXDOMAIN; vodafone-dns.net NXDOMAIN; tech26.de (NS only, no A)
 # Policy: every carrier block includes its consumer website.
 payload:
@@ -28,6 +28,7 @@ payload:
 
   # 1&1 Versatel (mnc023)
   - DOMAIN-SUFFIX,epdg.epc.mnc023.mcc262.pub.3gppnetwork.org
+  - DOMAIN-SUFFIX,epdg.epc.mnc043.mcc262.pub.3gppnetwork.org
   - DOMAIN-SUFFIX,1und1.de
 
   # Lebara DE (mnc014; Netify IP AS Lebara)
