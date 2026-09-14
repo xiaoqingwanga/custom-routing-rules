@@ -18,6 +18,7 @@ payload:
   - IP-CIDR,213.20.175.56/32,no-resolve
 
   # 1&1 Versatel
+  - IP-CIDR,3.40.138.40/32,no-resolve
   - IP-CIDR,61.8.132.2/32,no-resolve
   - IP-CIDR,61.8.143.2/32,no-resolve
   - IP-CIDR,61.8.148.2/32,no-resolve
