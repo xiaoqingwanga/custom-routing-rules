@@ -1,0 +1,3 @@
+# Domains whose access is controlled by a local time-based policy.
+payload:
+  - "+.nodeseek.com"

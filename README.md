@@ -20,6 +20,7 @@ Consumers pull by `interval` (clients) or router cron (`NetworkTurbo` `scripts/u
 |------|-----------------------------------------------------------|
 | `custom-direct` | → DIRECT（杂项例外 + Apple / Steam 下载 CDN；非整站 `apple.com`，不含商店/登录/社区） |
 | `custom-reject` | → REJECT |
+| `scheduled-block` | Domains whose access is controlled by a consumer-side time schedule |
 | `custom-proxy` | → default `proxy` |
 | `heavy-proxy` | → high-bandwidth proxy bucket（需要大流量代理的站点） |
 | `geo-us` | → US regional outbound（域名：US ePDG / 运营商站） |
