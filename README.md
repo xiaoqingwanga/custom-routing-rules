@@ -23,8 +23,8 @@ Consumers pull by their configured `interval`. NetworkTurbo's current router is 
 | `scheduled-block` | Domains whose access is controlled by a consumer-side time schedule |
 | `custom-proxy` | → default `proxy` |
 | `heavy-proxy` | → high-bandwidth proxy bucket（需要大流量代理的站点） |
-| `geo-us` | → US regional outbound（域名：US ePDG / 运营商站） |
-| `geo-us-ip` | → US regional outbound（仅 IP；**只进路由，禁止进 DNS**） |
+| `geo-us` | ruleset only — not wired yet（域名：US ePDG / 运营商站） |
+| `geo-us-ip` | ruleset only — not wired yet（仅 IP；**只进路由，禁止进 DNS**） |
 | `geo-uk` | → UK regional outbound（域名：UK ePDG / 运营商站 / Krak；iFAST 用 `geosite:ifast` 在 consumer 配置分组） |
 | `geo-uk-ip` | → UK regional outbound（仅 IP；**只进路由，禁止进 DNS**） |
 | `geo-sg` | → SG regional outbound（域名） |
