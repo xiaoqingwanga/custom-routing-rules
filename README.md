@@ -12,11 +12,11 @@ Personal domain exceptions for Clash / sing-box. **Rules only — no proxy crede
 
 Raw base: `https://raw.githubusercontent.com/xiaoqingwanga/custom-routing-rules/main/`
 
-Consumers pull by `interval` (clients) or router cron (`NetworkTurbo` `scripts/update-singbox-rules.sh` → `/etc/sing-box/*.json`). **Push to `main` before expecting remote/cron refresh.**
+Consumers pull by their configured `interval`. NetworkTurbo's current router is Mihomo and consumes `clash/*.yaml` through `rule-providers`; it does not run a separate sing-box rules download cron. **Push to `main` before expecting consumers to refresh.**
 
 ## Buckets
 
-| File | Role / intended outbound (wired in NetworkTurbo `confs/`) |
+| File | Role / intended outbound (wired in NetworkTurbo `clash-subscription/rules/`) |
 |------|-----------------------------------------------------------|
 | `custom-direct` | → DIRECT（杂项例外 + Apple / Steam 下载 CDN；非整站 `apple.com`，不含商店/登录/社区） |
 | `custom-reject` | → REJECT |
@@ -34,7 +34,7 @@ Consumers pull by `interval` (clients) or router cron (`NetworkTurbo` `scripts/u
 | `geo-hk` | ruleset only — not wired yet（域名） |
 | `geo-hk-ip` | ruleset only — not wired yet（仅 IP） |
 
-Outbound binding lives in NetworkTurbo `confs/`, not here. **新建桶**除本仓文件外，还需改 NetworkTurbo：`rule-providers` / `rule_set` 接线 + `update-singbox-rules.sh` 的 `CUSTOMS`。
+Outbound binding lives in NetworkTurbo `clash-subscription/rules/`, not here. **新建桶**除本仓文件外，还需在三端固定模板中补齐相应 `rule-providers`、DNS policy（仅域名桶）和 route rules，再用 `clash-subscription/scripts/build-configs.rb` 生成并校验三份配置。
 
 ---
 
@@ -45,7 +45,7 @@ Outbound binding lives in NetworkTurbo `confs/`, not here. **新建桶**除本�
    - sing-box：`sing-box/custom-*.json` / `sing-box/heavy-proxy.json` 的 `domain_suffix`（无前导 `.`）
 2. **两边必须同步**（同一批域名）。
 3. `git commit` + `push` `main`。
-4. 客户端等 `interval` 或手动更新 rule-providers；路由器等 cron / 手动跑 `update-rules.sh`（改完规则仓本身一般**不必**为 custom-* / heavy-proxy 重启，除非本地文件已换且服务要热加载——以路由器脚本为准：有变更会 restart）。
+4. 客户端和路由器等待 `rule-providers` 的 `interval`，或通过 Mihomo/客户端界面手动刷新；只改规则内容通常不需要重启 Mihomo。
 
 Apple / Steam 下载 CDN 已合并进 `custom-direct`，见下方对应 SOP。
 
@@ -60,13 +60,13 @@ Apple / Steam 下载 CDN 已合并进 `custom-direct`，见下方对应 SOP。
 优先交叉看（不要只抄一份）：
 
 - HenryChiao [`Wi-Fi_Calling_rule-set`](https://github.com/HenryChiao/the_clash_ruleset/tree/main/The_Location_rule-set/Wi-Fi_Calling_rule-set) / `apple-location.list`
-- 厂商 QoS 列表：Omada / Aruba Wi-Fi Calling DNS patterns
+- 厂商 QoS 列表：Omada Wi-Fi Calling DNS patterns（Aruba 页面会阻断当前自动抓取，仅供人工交叉检查）
 - 网关目录：[Netify mobile gateways](https://www.netify.ai/resources/mobile-gateways)（按国家 MCC）
 - 论坛/实测（如某 MVNO 实际解析到的 ePDG）
 
 按地区维护：`geo-us` / `geo-uk` / `geo-de` / `geo-hk`；`apple-location` 目前为 `gspe1-ssl.ls.apple.com`、`gspe79-ssl.ls.apple.com`（独立桶，不并进 `geo-uk`）。
 
-**自动化（只读）**：NetworkTurbo `scripts/security-summary.sh` 会拉取上述上游 + 本仓已发布规则，对 ours 做 DoH，并对「上游有、我们没有」的候选再 DoH。ours 里 **ePDG FQDN**（`*epdg*` / `wo.vzwwo.com`）若有公网 A，再对照同桶 `geo-*-ip` CIDR：未覆盖记 `WARN`（补 `IP-CIDR`；只进路由、勿进 DNS）。同时核对 clash yaml ↔ sing-box json 的 CIDR 集合。HenryChiao / Omada 上仍存活的缺口记 `WARN: MISSING`；**已由 confs 分组的 companion geosite 覆盖的不算缺口**（如 `geosite:n26` 覆盖 Henry 的 `n26.com` / `support.n26.com`，勿再抄进 `geo-de`）；Netify 噪声记 `INFO`；上游死域名（NXDOMAIN / `127.0.0.1` / NO_A）**自动跳过**并缓存约 7 天（`~/.cache/networkturbo/wfc-dead-domains.tsv`）。若死域名已在本仓规则里则仍 WARN。写入/push 仍手工。默认至少间隔 3 天才再跑（戳记 `~/.cache/networkturbo/sop-last-run-geo`）；`--force-sop` 或 `FORCE_RULESET_SOP=1` 可强制。
+**自动化（受管规则只读；本地缓存可写）**：NetworkTurbo `inhouse/scripts/security-summary.sh` 会拉取上述上游 + 本仓已发布规则，对 ours 做 DoH，并对「上游有、我们没有」的候选再 DoH。ours 里 **ePDG FQDN**（`*epdg*` / `wo.vzwwo.com`）若有公网 A，再对照同桶 `geo-*-ip` CIDR：未覆盖记 `WARN`（补 `IP-CIDR`；只进路由、勿进 DNS）。同时核对 Clash YAML ↔ sing-box JSON 的 CIDR 集合。HenryChiao / Omada 上仍存活的缺口记 `WARN: MISSING`；**已由 `clash-subscription/rules/` 分组的 companion geosite 覆盖的不算缺口**（如 `geosite:n26` 覆盖 Henry 的 `n26.com` / `support.n26.com`，勿再抄进 `geo-de`）；Netify 噪声记 `INFO`；上游死域名（NXDOMAIN / `127.0.0.1` / NO_A）**自动跳过**并缓存约 7 天（`~/.cache/networkturbo/wfc-dead-domains.tsv`）。若死域名已在本仓规则里则仍 WARN。写入/push 仍手工。默认至少间隔 3 天才再跑（戳记 `~/.cache/networkturbo/sop-last-run-geo`）；`--force-sop` 或 `FORCE_RULESET_SOP=1` 可强制。
 
 ### 2. 解析校验（必做）
 
@@ -108,15 +108,15 @@ MVNO（如 CTExcel）往往**没有**自有 ePDG，而是宿主网（如 EE `mnc
 ### 4. 发布与生效
 
 1. 本仓 `commit` + `push` `main`。
-2. **NetworkTurbo**：若只改域名/IP、出站不变 → 客户端自动拉；路由器跑 / 等 `update-singbox-rules.sh`（会下载并在有变更时重启 sing-box）。
-3. 若要**改出站或新建桶并接线**：改 NetworkTurbo `confs/`（`singbox-router.json` / `clash.yaml` / `stash.yaml`）+ 视需要改 `update-singbox-rules.sh` 的 `CUSTOMS` 列表，再按路由器部署流程备份 → 上传 → `sing-box check` → 重启一次。
+2. **NetworkTurbo**：若只改域名/IP、出站不变，Clash、Stash 和路由器 Mihomo 都按 `rule-providers` 的 `interval` 自动拉取，也可手动刷新 provider。
+3. 若要**改出站或新建桶并接线**：修改 NetworkTurbo `clash-subscription/rules/base-{clash,stash,router}.yaml` 和必要 overlay，运行 `ruby clash-subscription/scripts/build-configs.rb` 并完成三端校验；路由器只部署 `clash-subscription/output/mihomo-router.yaml`，按备份 → 上传 → `mihomo -t` → 重启一次 → 验证服务状态执行。
 
 ### 5. 快速自检
 
 - [ ] clash 与 sing-box 条目一致  
 - [ ] 无 `127.0.0.1` / 明显垃圾域名  
 - [ ] 已 push；路由器/客户端能拉到新内容  
-- [ ] HK 等「仅 ruleset」桶：不要误接到 `confs/`，除非明确要接线  
+- [ ] HK 等「仅 ruleset」桶：不要误接到 `clash-subscription/rules/`，除非明确要接线
 
 ---
 
@@ -137,7 +137,7 @@ MVNO（如 CTExcel）往往**没有**自有 ePDG，而是宿主网（如 EE `mnc
 | 章节 | 直连候选（下载/CDN） | 应留给 proxy（勿塞进 Apple 分区） |
 |------|----------------------|--------------------------------------|
 | Software updates | `updates(.cdn-apple)`、`swcdn` / `swdist` / `swdownload`、`appldnld`、`oscdn` / `osrecovery` 等 | `mesu` / `gdmf` / `swscan` 等**目录**；`xp` / `gg` / `gs` 等小流量 API |
-| Apps and additional content | `*.mzstatic.com`；`audiocontentdownload`；`download.developer` / `devimages-cdn`；`playgrounds-*`；`sylvan` | `*.itunes.apple.com`、`*.apps.apple.com`（商店 API / 区服） |
+| Apps and additional content | `*.mzstatic.com`；`audiocontentdownload`；`download.developer` / `devimages-cdn`；`playground-*`；`sylvan` | `*.itunes.apple.com`、`*.apps.apple.com`（商店 API / 区服） |
 | Apple Account | — | `idmsa` / `account` / `gsa` / `appleid.cdn-apple.com`（登录；`cdn-apple` 后缀已直连时静态资源会直连，可接受） |
 | iCloud | `*.icloud-content.com`；`*.cdn-apple.com`（面宽，含更新包） | 一般 `*.icloud.com` API（整站勿直连） |
 
@@ -148,7 +148,7 @@ MVNO（如 CTExcel）往往**没有**自有 ePDG，而是宿主网（如 EE `mnc
 Clash / sing-box **同一批**，写在 `custom-direct` 的 Apple 分区。当前应大致覆盖：
 
 - 后缀：`mzstatic.com`、`cdn-apple.com`、`icloud-content.com`
-- 主机：`appldnld` / `swcdn` / `swdist` / `swdownload` / `oscdn` / `osrecovery`、`download.developer` / `devimages-cdn`、`audiocontentdownload`、`sylvan`、`playgrounds-cdn` / `playgrounds-assets-cdn`（注意官方现为 **playgrounds** 复数）
+- 主机：`appldnld` / `swcdn` / `swdist` / `swdownload` / `oscdn` / `osrecovery`、`download.developer` / `devimages-cdn`、`audiocontentdownload`、`sylvan`、`playground-cdn` / `playground-assets-cdn`（Apple 于 2026 年 7 月更正为 **playground** 单数）
 
 文档新增「明显大文件」主机时：只加下载侧；**不要**为了省事写 `+.apple.com`。
 
@@ -167,12 +167,12 @@ curl -sH 'accept: application/dns-json' \
 |------|------|
 | App / 系统更新 / Xcode 组件包体 | DIRECT（`custom-direct` Apple 分区） |
 | App Store 登录、购买、商店页 API | proxy（`itunes` / `apps` / `idmsa` 等） |
-| `apple-location` / `geo-*` | 专用规则优先于 `custom-direct`（出站在 NetworkTurbo `confs/`） |
+| `apple-location` / `geo-*` | 专用规则优先于 `custom-direct`（出站在 NetworkTurbo `clash-subscription/rules/`） |
 
 ### 5. 发布
 
-双格式改完 → `commit` + `push` `main` → 客户端 `interval` / 路由器 `update-singbox-rules.sh`（须已含 `custom-direct.json`）。  
-若 NetworkTurbo 尚未接线本桶：改 `confs/` + `CUSTOMS` 后再部署路由器配置。
+双格式改完 → `commit` + `push` `main` → 客户端及路由器 Mihomo 等待 `rule-providers` 的 `interval` 或手动刷新。
+若 NetworkTurbo 尚未接线本桶：更新 `clash-subscription/rules/` 三端模板，重新生成并校验配置。
 
 ### 6. 快速自检
 
@@ -181,7 +181,7 @@ curl -sH 'accept: application/dns-json' \
 - [ ] clash ↔ sing-box 条目一致  
 - [ ] 无 `itunes.apple.com` / `apps.apple.com` / `idmsa.apple.com` 等登录·API  
 - [ ] 对照过 [101555](https://support.apple.com/en-us/101555) 近期 changelog（页底 Recent changes）  
-- [ ] 已 push；`update-singbox-rules.sh` / 客户端能拉到新内容  
+- [ ] 已 push；路由器 Mihomo / 客户端能拉到新内容
 
 ---
 
@@ -210,7 +210,7 @@ curl -sH 'accept: application/dns-json' \
 
 ### 3. 发布与自检
 
-双格式改完 → `commit` + `push` → 客户端 / `update-singbox-rules.sh`（须已含 `custom-direct.json`）。
+双格式改完 → `commit` + `push` → 客户端及路由器 Mihomo 等待 `rule-providers` 刷新或手动刷新。
 
 - [ ] 条目只在 `custom-direct` 的 Steam 分区  
 - [ ] clash ↔ sing-box 一致  
