@@ -1,6 +1,5 @@
 # Domains whose access is controlled by a local time-based policy.
 payload:
-  - "+.bilibili.com"
   - "+.nodeseek.com"
   - "+.telegram.org"
   - "+.x.com"
