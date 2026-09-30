@@ -3,6 +3,7 @@
   "rules": [
     {
       "domain_suffix": [
+        "alibabacloud.com",
         "bing.com",
         "z.ai"
       ]

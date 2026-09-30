@@ -1,4 +1,5 @@
 # Domains forced onto default proxy (before CN / GEOIP fallbacks).
 payload:
+  - "+.alibabacloud.com"
   - "+.bing.com"
   - "+.z.ai"
