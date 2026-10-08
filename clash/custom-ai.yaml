@@ -1,0 +1,3 @@
+# Domains that share the consumer's ai outbound.
+payload:
+  - "+.syosetu.com"

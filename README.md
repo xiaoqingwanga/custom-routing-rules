@@ -4,7 +4,7 @@ Personal domain exceptions for Clash / sing-box. **Rules only — no proxy crede
 
 | Path | Consumer |
 |------|----------|
-| `clash/custom-{direct,reject,proxy}.yaml` | Mihomo / Stash `rule-providers` (`behavior: domain`) |
+| `clash/custom-{direct,reject,proxy,ai}.yaml` | Mihomo / Stash `rule-providers` (`behavior: domain`) |
 | `clash/geo-sg.yaml` | Mihomo / Stash (`behavior: classical`) — SG regional sites |
 | `clash/heavy-proxy.yaml` | Mihomo / Stash (`behavior: domain`) — high-bandwidth sites |
 | `clash/geo-*.yaml`, `clash/apple-location.yaml` | Mihomo / Stash (`behavior: classical`); `geo-*-ip.yaml` 仅 IP，只给路由 |
@@ -22,6 +22,7 @@ Consumers pull by their configured `interval`. NetworkTurbo's current router is 
 | `custom-reject` | → REJECT |
 | `scheduled-block` | Domains whose access is controlled by a consumer-side time schedule |
 | `custom-proxy` | → default `proxy` |
+| `custom-ai` | → same `ai` group as AI services（如 syosetu.com） |
 | `heavy-proxy` | → high-bandwidth proxy bucket（需要大流量代理的站点） |
 | `geo-us` | ruleset only — not wired yet（域名：US ePDG / 运营商站） |
 | `geo-us-ip` | ruleset only — not wired yet（仅 IP；**只进路由，禁止进 DNS**） |
