@@ -1,0 +1,22 @@
+# Generated from clash/geo-us.yaml by scripts/build-shadowrocket.rb.
+# Conditions only; routing policy belongs in the client configuration.
+DOMAIN-SUFFIX,epdg.epc.att.net
+DOMAIN-SUFFIX,epdg.epc.att-idns.net
+DOMAIN-SUFFIX,sentitlement2.mobile.att.net
+DOMAIN-SUFFIX,vvm.mobile.att.net
+DOMAIN-SUFFIX,att.com
+DOMAIN-SUFFIX,crl.t-mobile.com
+DOMAIN-SUFFIX,eas3.msg.t-mobile.com
+DOMAIN-SUFFIX,epdg.epc.mnc240.mcc310.pub.3gppnetwork.org
+DOMAIN-SUFFIX,epdg.epc.mnc260.mcc310.pub.3gppnetwork.org
+DOMAIN-SUFFIX,mascns.t-mobile.com
+DOMAIN-SUFFIX,ns.sipgeo.t-mobile.com
+DOMAIN-SUFFIX,t-mobile.com
+DOMAIN-SUFFIX,redirect.ultra.me
+DOMAIN-SUFFIX,epdg.epc.geo.mnc260.mcc310.pub.3gppnetwork.org
+DOMAIN-SUFFIX,ultramobile.com
+DOMAIN-SUFFIX,ss.epdg.epc.mnc260.mcc310.pub.3gppnetwork.org
+DOMAIN-SUFFIX,ss.epdg.epc.geo.mnc260.mcc310.pub.3gppnetwork.org
+DOMAIN-SUFFIX,wo.vzwwo.com
+DOMAIN-SUFFIX,verizon.com
+DOMAIN-SUFFIX,verizonwireless.com

@@ -1,0 +1,7 @@
+# Generated from clash/geo-us-ip.yaml by scripts/build-shadowrocket.rb.
+# Conditions only; routing policy belongs in the client configuration.
+IP-CIDR,107.122.31.0/24,no-resolve
+IP-CIDR,206.29.177.36/32,no-resolve
+IP-CIDR,208.54.0.0/16,no-resolve
+IP-CIDR,66.94.0.0/19,no-resolve
+IP-CIDR,141.207.0.0/16,no-resolve

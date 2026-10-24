@@ -1,0 +1,20 @@
+# Generated from clash/geo-hk.yaml by scripts/build-shadowrocket.rb.
+# Conditions only; routing policy belongs in the client configuration.
+DOMAIN-SUFFIX,wlan.three.com.hk
+DOMAIN-SUFFIX,wlan.datapath.three.com.hk
+DOMAIN-SUFFIX,device.three.com.hk
+DOMAIN-SUFFIX,three.com.hk
+DOMAIN-SUFFIX,epdg.epc.mnc000.mcc454.pub.3gppnetwork.org
+DOMAIN-SUFFIX,csl.prod.ondemandconnectivity.com
+DOMAIN-SUFFIX,epdg.epc.mnc010.mcc454.pub.3gppnetwork.org
+DOMAIN-SUFFIX,epdg.epc.mnc016.mcc454.pub.3gppnetwork.org
+DOMAIN-SUFFIX,epdg.epc.mnc019.mcc454.pub.3gppnetwork.org
+DOMAIN-SUFFIX,hkt.com
+DOMAIN-SUFFIX,csl.com.hk
+DOMAIN-SUFFIX,1010.com.hk
+DOMAIN-SUFFIX,one2free.com.hk
+DOMAIN-SUFFIX,hhk.prod.ondemandconnectivity.com
+DOMAIN-SUFFIX,epdg.epc.mnc006.mcc454.pub.3gppnetwork.org
+DOMAIN-SUFFIX,smartone.com
+DOMAIN-SUFFIX,epdg.epc.mnc012.mcc454.pub.3gppnetwork.org
+DOMAIN-SUFFIX,hk.chinamobile.com

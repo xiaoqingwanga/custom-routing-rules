@@ -1,0 +1,21 @@
+# Generated from clash/geo-uk.yaml by scripts/build-shadowrocket.rb.
+# Conditions only; routing policy belongs in the client configuration.
+DOMAIN-SUFFIX,entsrv-uk.vodafone.com
+DOMAIN-SUFFIX,epdg.epc.mnc015.mcc234.pub.3gppnetwork.org
+DOMAIN-SUFFIX,vuk-gto.prod.ondemandconnectivity.com
+DOMAIN-SUFFIX,vodafone.co.uk
+DOMAIN-SUFFIX,epdg.epc.mnc030.mcc234.pub.3gppnetwork.org
+DOMAIN-SUFFIX,epdg.epc.mnc033.mcc234.pub.3gppnetwork.org
+DOMAIN-SUFFIX,epdg.epc.mnc071.mcc234.pub.3gppnetwork.org
+DOMAIN-SUFFIX,config.rcs.mnc033.mcc234.jibecloud.net
+DOMAIN-SUFFIX,ee.co.uk
+DOMAIN-SUFFIX,ctexcel.com
+DOMAIN-SUFFIX,epdg.epc.mnc001.mcc230.pub.3gppnetwork.org
+DOMAIN-SUFFIX,cmlink.com
+DOMAIN-SUFFIX,giffgaff.com
+DOMAIN-SUFFIX,o2.co.uk
+DOMAIN-SUFFIX,epdg.epc.mnc010.mcc234.pub.3gppnetwork.org
+DOMAIN-SUFFIX,epdg.epc.mnc020.mcc234.pub.3gppnetwork.org
+DOMAIN-SUFFIX,three.co.uk
+DOMAIN-SUFFIX,voxi.co.uk
+DOMAIN-SUFFIX,krak.app

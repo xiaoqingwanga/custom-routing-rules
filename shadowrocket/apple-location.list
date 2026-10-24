@@ -1,0 +1,4 @@
+# Generated from clash/apple-location.yaml by scripts/build-shadowrocket.rb.
+# Conditions only; routing policy belongs in the client configuration.
+DOMAIN-SUFFIX,gspe1-ssl.ls.apple.com
+DOMAIN-SUFFIX,gspe79-ssl.ls.apple.com

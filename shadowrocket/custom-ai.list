@@ -1,0 +1,3 @@
+# Generated from clash/custom-ai.yaml by scripts/build-shadowrocket.rb.
+# Conditions only; routing policy belongs in the client configuration.
+DOMAIN-SUFFIX,syosetu.com

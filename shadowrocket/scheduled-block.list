@@ -1,0 +1,4 @@
+# Generated from clash/scheduled-block.yaml by scripts/build-shadowrocket.rb.
+# Conditions only; routing policy belongs in the client configuration.
+DOMAIN-SUFFIX,telegram.org
+DOMAIN-SUFFIX,x.com

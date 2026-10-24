@@ -1,0 +1,21 @@
+# Generated from clash/geo-de.yaml by scripts/build-shadowrocket.rb.
+# Conditions only; routing policy belongs in the client configuration.
+DOMAIN-SUFFIX,epdg.epc.mnc001.mcc262.pub.3gppnetwork.org
+DOMAIN-SUFFIX,telekom.de
+DOMAIN-SUFFIX,t-online.de
+DOMAIN-SUFFIX,epdg.epc.mnc002.mcc262.pub.3gppnetwork.org
+DOMAIN-SUFFIX,epdg.epc.drz1.vodafone-ip.de
+DOMAIN-SUFFIX,epdg.epc.mnc009.mcc262.pub.3gppnetwork.org
+DOMAIN-SUFFIX,vodafone.de
+DOMAIN-SUFFIX,vodafone-ip.de
+DOMAIN-SUFFIX,arcor-ip.de
+DOMAIN-SUFFIX,epdg.epc.mnc003.mcc262.pub.3gppnetwork.org
+DOMAIN-SUFFIX,epdg.epc.mnc007.mcc262.pub.3gppnetwork.org
+DOMAIN-SUFFIX,o2.de
+DOMAIN-SUFFIX,o2online.de
+DOMAIN-SUFFIX,epdg.epc.mnc023.mcc262.pub.3gppnetwork.org
+DOMAIN-SUFFIX,epdg.epc.mnc043.mcc262.pub.3gppnetwork.org
+DOMAIN-SUFFIX,1und1.de
+DOMAIN-SUFFIX,epdg.epc.mnc014.mcc262.pub.3gppnetwork.org
+DOMAIN-SUFFIX,lebara.de
+DOMAIN-SUFFIX,lebara.com

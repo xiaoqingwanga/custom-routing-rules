@@ -1,0 +1,3 @@
+# Generated from clash/geo-sg.yaml by scripts/build-shadowrocket.rb.
+# Conditions only; routing policy belongs in the client configuration.
+DOMAIN-SUFFIX,dicey.com
