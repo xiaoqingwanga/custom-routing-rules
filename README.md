@@ -1,6 +1,6 @@
 # custom-routing-rules
 
-Personal domain exceptions for Clash / sing-box / Shadowrocket. **Rules only — no proxy credentials.**
+Personal domain exceptions for Clash / sing-box. **Rules only — no proxy credentials.**
 
 | Path | Consumer |
 |------|----------|
@@ -8,7 +8,6 @@ Personal domain exceptions for Clash / sing-box / Shadowrocket. **Rules only —
 | `clash/geo-sg.yaml` | Mihomo / Stash (`behavior: classical`) — SG regional sites |
 | `clash/heavy-proxy.yaml` | Mihomo / Stash (`behavior: domain`) — high-bandwidth sites |
 | `clash/geo-*.yaml`, `clash/apple-location.yaml` | Mihomo / Stash (`behavior: classical`); `geo-*-ip.yaml` 仅 IP，只给路由 |
-| `shadowrocket/*.list` | Shadowrocket `RULE-SET`；由 `clash/*.yaml` 生成，仅含匹配条件，出口策略在客户端配置中 |
 | `sing-box/*.json` | sing-box `rule_set` (`format: source`)；`geo-*-ip.json` 仅 IP，只给路由 |
 
 Raw base: `https://raw.githubusercontent.com/xiaoqingwanga/custom-routing-rules/main/`
@@ -45,7 +44,7 @@ Outbound binding lives in NetworkTurbo `clash-subscription/rules/`, not here. **
 1. 在对应文件加/删域名：
    - Clash：`clash/custom-*.yaml` / `clash/heavy-proxy.yaml` 的 `payload`（`+.example.com`）
    - sing-box：`sing-box/custom-*.json` / `sing-box/heavy-proxy.json` 的 `domain_suffix`（无前导 `.`）
-2. Clash / sing-box 两边必须同步（同一批域名）；再运行 `ruby scripts/build-shadowrocket.rb` 生成 Shadowrocket 列表。
+2. Clash / sing-box 两边必须同步（同一批域名）。
 3. `git commit` + `push` `main`。
 4. 客户端和路由器等待 `rule-providers` 的 `interval`，或通过 Mihomo/客户端界面手动刷新；只改规则内容通常不需要重启 Mihomo。
 
@@ -90,7 +89,7 @@ MVNO（如 CTExcel）往往**没有**自有 ePDG，而是宿主网（如 EE `mnc
 
 ### 3. 写入规则
 
-Clash / sing-box 同一逻辑写两份；修改后运行 `ruby scripts/build-shadowrocket.rb`，从 Clash 源生成 Shadowrocket 第三份格式：
+Clash / sing-box 同一逻辑写两份：
 
 | | Clash (`behavior: classical`) | sing-box (`format: source`) |
 |--|-------------------------------|-----------------------------|
@@ -217,22 +216,4 @@ curl -sH 'accept: application/dns-json' \
 - [ ] 条目只在 `custom-direct` 的 Steam 分区  
 - [ ] clash ↔ sing-box 一致  
 - [ ] 无商店/登录域  
-- [ ] 已 push；消费者能拉到新内容  
-
-## Shadowrocket 规则发布
-
-`clash/*.yaml` 是 Shadowrocket 列表的生成源，不手工修改 `shadowrocket/*.list`。
-在仓库根目录运行：
-
-```sh
-ruby scripts/build-shadowrocket.rb
-ruby scripts/build-shadowrocket.rb --check
-```
-
-生成保留精确域名、域名后缀、通配符、IP 地址族及 `no-resolve`，不附加出口策略。
-提交源文件及生成结果后推送；CI 检查第三份格式与 Clash 源一致。Shadowrocket 主配置用
-`RULE-SET,https://raw.githubusercontent.com/xiaoqingwanga/custom-routing-rules/main/shadowrocket/custom-direct.list,DIRECT`
-引用。规则内容变更后刷新客户端规则集即可，分组、出口绑定及规则顺序仍由主配置维护。
-
-生成现有全部规则桶；是否启用由消费者决定。`scheduled-block` 继续仅由 Router 的定时策略使用，
-NetworkTurbo 的 Shadowrocket 配置不接入该桶，也不自动启用尚未接入的地区桶。
+- [ ] 已 push；消费者能拉到新内容

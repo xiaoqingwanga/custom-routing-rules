@@ -1,4 +1,0 @@
-# Generated from clash/custom-reject.yaml by scripts/build-shadowrocket.rb.
-# Conditions only; routing policy belongs in the client configuration.
-DOMAIN-SUFFIX,tieba.baidu.com
-DOMAIN-SUFFIX,sicau.edu.cn

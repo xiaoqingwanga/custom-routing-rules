@@ -1,5 +1,0 @@
-# Generated from clash/custom-proxy.yaml by scripts/build-shadowrocket.rb.
-# Conditions only; routing policy belongs in the client configuration.
-DOMAIN-SUFFIX,alibabacloud.com
-DOMAIN-SUFFIX,bing.com
-DOMAIN-SUFFIX,z.ai
