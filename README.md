@@ -32,7 +32,7 @@ Consumers pull by their configured `interval`. NetworkTurbo's current router is 
 | `geo-de` | → DE regional outbound（域名：DE ePDG / 运营商站；N26 用 `geosite:n26` 在 consumer 配置分组） |
 | `geo-de-ip` | → DE regional outbound（仅 IP；**只进路由，禁止进 DNS**） |
 | `apple-location` | → Apple location outbound（独立桶） |
-| `geo-hk` | ruleset only — not wired yet（域名） |
+| `geo-hk` | → `aliyun-hk`（域名：HK ePDG / 运营商站 / HSBC HK） |
 | `geo-hk-ip` | ruleset only — not wired yet（仅 IP） |
 
 Outbound binding lives in NetworkTurbo `clash-subscription/rules/`, not here. **新建桶**除本仓文件外，还需在三端固定模板中补齐相应 `rule-providers`、DNS policy（仅域名桶）和 route rules，再用 `clash-subscription/scripts/build-configs.rb` 生成并校验三份配置。
@@ -117,7 +117,7 @@ Clash / sing-box 同一逻辑写两份：
 - [ ] clash 与 sing-box 条目一致  
 - [ ] 无 `127.0.0.1` / 明显垃圾域名  
 - [ ] 已 push；路由器/客户端能拉到新内容  
-- [ ] HK 等「仅 ruleset」桶：不要误接到 `clash-subscription/rules/`，除非明确要接线
+- [ ] US 等「仅 ruleset」桶：不要误接到 `clash-subscription/rules/`，除非明确要接线
 
 ---
 

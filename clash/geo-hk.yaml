@@ -1,6 +1,6 @@
-# HK regional exit (geo-hk) — ruleset only; not wired in confs yet.
+# HK regional exit (geo-hk) — aliyun-hk in NetworkTurbo.
 # Domain-only. IP CIDRs live in geo-hk-ip.yaml (route only; never DNS).
-# Includes Wi-Fi Calling ePDG + carrier sites (not WFC-only).
+# Includes Wi-Fi Calling ePDG, carrier sites and HSBC HK.
 # Base: HenryChiao wificalling-hk.list
 # + SmarTone mnc006, HKT mnc010/016/019, CMHK mnc012
 # Policy: every carrier block includes its consumer website.
@@ -32,3 +32,6 @@ payload:
   # CMHK
   - DOMAIN-SUFFIX,epdg.epc.mnc012.mcc454.pub.3gppnetwork.org
   - DOMAIN-SUFFIX,hk.chinamobile.com
+
+  # HSBC Hong Kong (including hsbc.com.hk subdomains)
+  - DOMAIN-SUFFIX,hsbc.com.hk
