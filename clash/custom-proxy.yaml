@@ -2,5 +2,6 @@
 payload:
   - "+.alibabacloud.com"
   - "+.bing.com"
+  - "+.captchacdn.cloudcachetci.com"
   - "+.tencentcloud.com"
   - "+.z.ai"
