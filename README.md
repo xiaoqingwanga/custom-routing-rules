@@ -108,6 +108,8 @@ Clash / sing-box 同一逻辑写两份：
 
 ### 4. 发布与生效
 
+季度复核通过后，在 `wfc-reviews.tsv` 更新对应的 Clash 和 sing-box 文件各一行。每行用制表符分隔 UTC 日期（`YYYY-MM-DD`）、仓库相对路径和文件的 SHA-256（可用 `shasum -a 256 <path>` 计算）。巡检仅在发布文件的哈希匹配时采纳复核日期。
+
 1. 本仓 `commit` + `push` `main`。
 2. **NetworkTurbo**：若只改域名/IP、出站不变，Clash、Stash 和路由器 Mihomo 都按 `rule-providers` 的 `interval` 自动拉取，也可手动刷新 provider。
 3. 若要**改出站或新建桶并接线**：修改 NetworkTurbo `clash-subscription/rules/base-{clash,stash,router}.yaml` 和必要 overlay，运行 `ruby clash-subscription/scripts/build-configs.rb` 并完成三端校验；路由器只部署 `clash-subscription/output/mihomo-router.yaml`，按备份 → 上传 → `mihomo -t` → 重启一次 → 验证服务状态执行。
